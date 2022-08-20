@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
+import one.appscale.relayclientapi.api.v1.converter.ActivityKindEnumConverter;
 import one.appscale.relayclientapi.common.support.DateTimeSupport;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -29,6 +30,11 @@ public class WebConfiguration implements WebMvcConfigurer,
                                        "https://*.appscale.one")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH")
                 .allowCredentials(true);
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ActivityKindEnumConverter());
     }
 
     @Override
