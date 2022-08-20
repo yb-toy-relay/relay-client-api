@@ -21,27 +21,6 @@ public record Reattribution(ObjectId id,
                             ReattributionInfo reattributionInfo,
                             EnvironmentInfo environmentInfo,
                             FacebookReferrerInfo facebookReferrerInfo) {
-    public static Reattribution of(final ActivityKey activityKey,
-                                   final AppInfo appInfo,
-                                   final ChannelInfo channelInfo,
-                                   final EngagementInfo engagementInfo,
-                                   final DeviceIdInfo deviceIdInfo,
-                                   final DeviceDetail deviceDetail,
-                                   final ReattributionInfo reattributionInfo,
-                                   final EnvironmentInfo environmentInfo,
-                                   final FacebookReferrerInfo facebookReferrerInfo) {
-        return Reattribution.of(new ObjectId(),
-                                activityKey,
-                                appInfo,
-                                channelInfo,
-                                engagementInfo,
-                                deviceIdInfo,
-                                deviceDetail,
-                                reattributionInfo,
-                                environmentInfo,
-                                facebookReferrerInfo);
-    }
-
     public static Reattribution of(final ObjectId id,
                                    final ActivityKey activityKey,
                                    final AppInfo appInfo,

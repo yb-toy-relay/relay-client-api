@@ -21,26 +21,6 @@ public record Install(ObjectId id,
                       DeviceDetail deviceDetail,
                       EnvironmentInfo environmentInfo,
                       FacebookReferrerInfo facebookReferrerInfo) {
-    public static Install of(final ActivityKey activityKey,
-                             final AppInfo appInfo,
-                             final ChannelInfo channelInfo,
-                             final AttributionInfo attributionInfo,
-                             final EngagementInfo engagementInfo,
-                             final DeviceIdInfo deviceIdInfo,
-                             final DeviceDetail deviceDetail,
-                             final EnvironmentInfo environmentInfo,
-                             final FacebookReferrerInfo facebookReferrerInfo) {
-        return Install.of(new ObjectId(),
-                          activityKey,
-                          appInfo,
-                          channelInfo,
-                          attributionInfo,
-                          engagementInfo,
-                          deviceIdInfo,
-                          deviceDetail,
-                          environmentInfo,
-                          facebookReferrerInfo);
-    }
 
     public static Install of(final ObjectId id,
                              final ActivityKey activityKey,

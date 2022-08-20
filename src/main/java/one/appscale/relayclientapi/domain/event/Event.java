@@ -19,24 +19,6 @@ public record Event(ObjectId id,
                     EventInfo eventInfo,
                     EnvironmentInfo environmentInfo,
                     FacebookReferrerInfo facebookReferrerInfo) {
-    public static Event of(final ActivityKey activityKey,
-                           final AppInfo appInfo,
-                           final ChannelInfo channelInfo,
-                           final DeviceIdInfo deviceIdInfo,
-                           final DeviceDetail deviceDetail,
-                           final EventInfo eventInfo,
-                           final EnvironmentInfo environmentInfo,
-                           final FacebookReferrerInfo facebookReferrerInfo) {
-        return Event.of(new ObjectId(),
-                          activityKey,
-                          appInfo,
-                          channelInfo,
-                          deviceIdInfo,
-                          deviceDetail,
-                          eventInfo,
-                          environmentInfo,
-                          facebookReferrerInfo);
-    }
 
     public static Event of(final ObjectId id,
                            final ActivityKey activityKey,
