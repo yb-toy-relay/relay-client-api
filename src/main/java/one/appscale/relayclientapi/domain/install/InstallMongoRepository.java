@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.infra.persistence.mongo;
+package one.appscale.relayclientapi.domain.install;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -9,7 +9,7 @@ public interface InstallMongoRepository extends MongoRepository<InstallDocument,
     @Query(value = """
         {
             'appInfo.appToken' : ?0,
-            'createdAt' : { $gte: ?1, $lt: ?2 }
+            'activityKey.createdAt' : { $gte: ?1, $lt: ?2 }
         }
         """)
     List<InstallDocument> findAllByAppTokenAndDate(String appToken, long startTimeEpocSecond, long endTimeEpocSecond);

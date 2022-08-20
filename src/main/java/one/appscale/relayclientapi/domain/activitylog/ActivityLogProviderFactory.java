@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import one.appscale.relayclientapi.domain.event.EventService;
 import one.appscale.relayclientapi.domain.install.InstallService;
 import one.appscale.relayclientapi.domain.reattribution.ReattributionService;
-import one.appscale.relaydomain.domain.ActivityKind;
+import one.appscale.relaycommon.ActivityKind;
 import org.springframework.stereotype.Service;
 
 @Service

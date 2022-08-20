@@ -8,6 +8,10 @@ group = 'one.appscale'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+ext {
+    relaySchemaVersion = "0.0.1"
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -20,7 +24,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'one.appscale:relay-domain:0.0.2'
+    implementation "one.appscale:relay-schema:${relaySchemaVersion}"
+    implementation "one.appscale:relay-schema:${relaySchemaVersion}:avsc"
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -28,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    implementation 'org.apache.avro:avro:1.10.1'
 
     implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'

@@ -11,16 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class InstallService implements ActivityLogProvider {
-    private final InstallRepository installRepository;
+    private final InstallMongoRepository repository;
 
     @Override
     public CsvData getCsvData(ActivityLogSearchQuery searchQuery) {
-        final List<InstallCsv> installs = installRepository.findAllByAppTokenAndDate(searchQuery.appToken(),
-                                                                                     searchQuery.startEpocSecond(),
-                                                                                     searchQuery.endEpocSecond())
-                                                           .stream()
-                                                           .map(InstallCsv::of)
-                                                           .toList();
+        final List<InstallCsv> installs = repository.findAllByAppTokenAndDate(searchQuery.appToken(),
+                                                                              searchQuery.startEpocSecond(),
+                                                                              searchQuery.endEpocSecond())
+                                                    .stream()
+                                                    .map(InstallCsv::of)
+                                                    .toList();
         return new CsvData(searchQuery.activityKind(),
                            searchQuery.zoneId(),
                            installs);

@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.infra.persistence.mongo;
+package one.appscale.relayclientapi.domain.event;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -9,7 +9,7 @@ public interface EventMongoRepository extends MongoRepository<EventDocument, Str
     @Query(value = """
         {
             'appInfo.appToken' : ?0,
-            'createdAt' : { $gte: ?1, $lt: ?2 }
+            'activityKey.createdAt' : { $gte: ?1, $lt: ?2 }
         }
         """)
     List<EventDocument> findAllByAppTokenAndDate(String appToken, long startTimeEpocSecond, long endTimeEpocSecond);

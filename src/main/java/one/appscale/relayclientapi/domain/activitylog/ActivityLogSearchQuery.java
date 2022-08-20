@@ -1,7 +1,7 @@
 package one.appscale.relayclientapi.domain.activitylog;
 
 import one.appscale.relayclientapi.common.support.DateTimeSupport;
-import one.appscale.relaydomain.domain.ActivityKind;
+import one.appscale.relaycommon.ActivityKind;
 
 import java.time.LocalDate;
 

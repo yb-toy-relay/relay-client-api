@@ -5,7 +5,7 @@ import one.appscale.relayclientapi.domain.activitylog.ActivityLogProvider;
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogProviderFactory;
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
 import one.appscale.relayclientapi.domain.csv.exception.CsvException;
-import one.appscale.relaydomain.domain.ActivityKind;
+import one.appscale.relaycommon.ActivityKind;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.core.io.InputStreamResource;

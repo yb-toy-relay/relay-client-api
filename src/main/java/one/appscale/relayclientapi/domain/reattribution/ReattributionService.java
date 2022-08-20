@@ -11,10 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ReattributionService implements ActivityLogProvider {
-    private final ReattributionRepository reattributionRepository;
+    private final ReattributionMongoRepository repository;
 
     public CsvData getCsvData(final ActivityLogSearchQuery searchQuery) {
-        final List<ReattributionCsv> reattributions = reattributionRepository.findAllByAppTokenAndDate(searchQuery.appToken(),
+        final List<ReattributionCsv> reattributions = repository.findAllByAppTokenAndDate(searchQuery.appToken(),
                                                                                                        searchQuery.startEpocSecond(),
                                                                                                        searchQuery.endEpocSecond())
                                                                              .stream()

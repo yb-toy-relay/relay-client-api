@@ -3,16 +3,16 @@ package one.appscale.relayclientapi.domain.install;
 import com.google.common.collect.Lists;
 import lombok.Builder;
 import one.appscale.relayclientapi.domain.csv.Csv;
-import one.appscale.relaydomain.domain.ActivityKey;
-import one.appscale.relaydomain.domain.ActivityKind;
-import one.appscale.relaydomain.domain.AppInfo;
-import one.appscale.relaydomain.domain.AttributionInfo;
-import one.appscale.relaydomain.domain.ChannelInfo;
-import one.appscale.relaydomain.domain.DeviceDetail;
-import one.appscale.relaydomain.domain.DeviceIdInfo;
-import one.appscale.relaydomain.domain.EngagementInfo;
-import one.appscale.relaydomain.domain.EnvironmentInfo;
-import one.appscale.relaydomain.domain.FacebookReferrerInfo;
+import one.appscale.relayschema.domain.ActivityKey;
+import one.appscale.relayschema.domain.AppInfo;
+import one.appscale.relayschema.domain.AttributionInfo;
+import one.appscale.relayschema.domain.ChannelInfo;
+import one.appscale.relayschema.domain.DeviceDetail;
+import one.appscale.relayschema.domain.DeviceIdInfo;
+import one.appscale.relayschema.domain.EngagementInfo;
+import one.appscale.relayschema.domain.EnvironmentInfo;
+import one.appscale.relayschema.domain.FacebookReferrerInfo;
+import one.appscale.relayschema.domain.install.Install;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ import java.util.List;
 import static one.appscale.relayclientapi.common.support.DateTimeSupport.epochSecondToLocalDateTimeString;
 
 public record InstallCsv(long createdAt,
-                         ActivityKind activityKind,
+                         String activityKind,
                          String appToken,
                          String appId,
                          String appName,
@@ -68,62 +68,62 @@ public record InstallCsv(long createdAt,
     @Builder
     public InstallCsv {}
 
-    public static InstallCsv of(final Install install) {
-        final ActivityKey activityKey = install.activityKey();
-        final AppInfo appInfo = install.appInfo();
-        final ChannelInfo channelInfo = install.channelInfo();
-        final AttributionInfo attributionInfo = install.attributionInfo();
-        final EngagementInfo engagementInfo = install.engagementInfo();
-        final DeviceIdInfo deviceIdInfo = install.deviceIdInfo();
-        final DeviceDetail deviceDetail = install.deviceDetail();
-        final EnvironmentInfo environmentInfo = install.environmentInfo();
-        final FacebookReferrerInfo facebookReferrerInfo = install.facebookReferrerInfo();
+    public static InstallCsv of(final InstallDocument installDocument) {
+        final ActivityKey activityKey = installDocument.getActivityKey();
+        final AppInfo appInfo = installDocument.getAppInfo();
+        final ChannelInfo channelInfo = installDocument.getChannelInfo();
+        final AttributionInfo attributionInfo = installDocument.getAttributionInfo();
+        final EngagementInfo engagementInfo = installDocument.getEngagementInfo();
+        final DeviceIdInfo deviceIdInfo = installDocument.getDeviceIdInfo();
+        final DeviceDetail deviceDetail = installDocument.getDeviceDetail();
+        final EnvironmentInfo environmentInfo = installDocument.getEnvironmentInfo();
+        final FacebookReferrerInfo facebookReferrerInfo = installDocument.getFacebookReferrerInfo();
         return InstallCsv.builder()
-                         .createdAt(activityKey.createdAt())
-                         .activityKind(activityKey.activityKind())
-                         .appToken(appInfo.appToken())
-                         .appId(appInfo.appId())
-                         .appName(appInfo.appName())
-                         .appVersion(appInfo.appVersion())
-                         .networkName(channelInfo.networkName())
-                         .campaignName(channelInfo.campaignName())
-                         .adgroupName(channelInfo.adgroupName())
-                         .creativeName(channelInfo.creativeName())
-                         .impressionAttributionWindow(attributionInfo.impressionAttributionWindow())
-                         .clickAttributionWindow(attributionInfo.clickAttributionWindow())
-                         .probmatchingAttributionWindow(attributionInfo.probmatchingAttributionWindow())
-                         .impressionTime(engagementInfo.impressionTime())
-                         .clickTime(engagementInfo.clickTime())
-                         .installTime(engagementInfo.installTime())
-                         .installBeginTime(engagementInfo.installBeginTime())
-                         .installFinishTime(engagementInfo.installFinishTime())
-                         .conversionDuration(engagementInfo.conversionDuration())
-                         .referrer(engagementInfo.referrer())
-                         .matchType(engagementInfo.matchType())
-                         .adjustId(deviceIdInfo.adjustId())
-                         .gpsAdid(deviceIdInfo.gpsAdid())
-                         .idfa(deviceIdInfo.idfa())
-                         .idfv(deviceIdInfo.idfv())
-                         .country(deviceDetail.country())
-                         .countrySubdivision(deviceDetail.countrySubdivision())
-                         .city(deviceDetail.city())
-                         .postalCode(deviceDetail.postalCode())
-                         .language(deviceDetail.language())
-                         .deviceName(deviceDetail.deviceName())
-                         .deviceType(deviceDetail.deviceType())
-                         .osName(deviceDetail.osName())
-                         .osVersion(deviceDetail.osVersion())
-                         .attStatus(deviceDetail.attStatus())
-                         .connectionType(deviceDetail.connectionType())
-                         .isp(deviceDetail.isp())
-                         .ipAddress(deviceDetail.ipAddress())
-                         .environment(environmentInfo.environment())
-                         .sdkVersion(environmentInfo.sdkVersion())
-                         .fbRefPublisherPlatform(facebookReferrerInfo.fbRefPublisherPlatform())
-                         .fbRefAdObjective(facebookReferrerInfo.fbRefAdObjective())
-                         .fbRefCampaignGroup(facebookReferrerInfo.fbRefCampaignGroup())
-                         .fbRefCampaign(facebookReferrerInfo.fbRefCampaign())
-                         .fbRefAdgroup(facebookReferrerInfo.fbRefAdgroup())
+                         .createdAt(activityKey.getCreatedAt())
+                         .activityKind(activityKey.getActivityKind())
+                         .appToken(appInfo.getAppToken())
+                         .appId(appInfo.getAppId())
+                         .appName(appInfo.getAppName())
+                         .appVersion(appInfo.getAppVersion())
+                         .networkName(channelInfo.getNetworkName())
+                         .campaignName(channelInfo.getCampaignName())
+                         .adgroupName(channelInfo.getAdgroupName())
+                         .creativeName(channelInfo.getCreativeName())
+                         .impressionAttributionWindow(attributionInfo.getImpressionAttributionWindow())
+                         .clickAttributionWindow(attributionInfo.getClickAttributionWindow())
+                         .probmatchingAttributionWindow(attributionInfo.getProbmatchingAttributionWindow())
+                         .impressionTime(engagementInfo.getImpressionTime())
+                         .clickTime(engagementInfo.getClickTime())
+                         .installTime(engagementInfo.getInstallTime())
+                         .installBeginTime(engagementInfo.getInstallBeginTime())
+                         .installFinishTime(engagementInfo.getInstallFinishTime())
+                         .conversionDuration(engagementInfo.getConversionDuration())
+                         .referrer(engagementInfo.getReferrer())
+                         .matchType(engagementInfo.getMatchType())
+                         .adjustId(deviceIdInfo.getAdjustId())
+                         .gpsAdid(deviceIdInfo.getGpsAdid())
+                         .idfa(deviceIdInfo.getIdfa())
+                         .idfv(deviceIdInfo.getIdfv())
+                         .country(deviceDetail.getCountry())
+                         .countrySubdivision(deviceDetail.getCountrySubdivision())
+                         .city(deviceDetail.getCity())
+                         .postalCode(deviceDetail.getPostalCode())
+                         .language(deviceDetail.getLanguage())
+                         .deviceName(deviceDetail.getDeviceName())
+                         .deviceType(deviceDetail.getDeviceType())
+                         .osName(deviceDetail.getOsName())
+                         .osVersion(deviceDetail.getOsVersion())
+                         .attStatus(deviceDetail.getAttStatus())
+                         .connectionType(deviceDetail.getConnectionType())
+                         .isp(deviceDetail.getIsp())
+                         .ipAddress(deviceDetail.getIpAddress())
+                         .environment(environmentInfo.getEnvironment())
+                         .sdkVersion(environmentInfo.getSdkVersion())
+                         .fbRefPublisherPlatform(facebookReferrerInfo.getFbRefPublisherPlatform())
+                         .fbRefAdObjective(facebookReferrerInfo.getFbRefAdObjective())
+                         .fbRefCampaignGroup(facebookReferrerInfo.getFbRefCampaignGroup())
+                         .fbRefCampaign(facebookReferrerInfo.getFbRefCampaign())
+                         .fbRefAdgroup(facebookReferrerInfo.getFbRefAdgroup())
                          .build();
     }
 

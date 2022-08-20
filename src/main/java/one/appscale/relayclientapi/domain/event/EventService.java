@@ -11,16 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class EventService implements ActivityLogProvider {
-    private final EventRepository eventRepository;
+    private final EventMongoRepository repository;
 
     @Override
     public CsvData getCsvData(ActivityLogSearchQuery searchQuery) {
-        final List<EventCsv> events = eventRepository.findAllByAppTokenAndDate(searchQuery.appToken(),
-                                                                               searchQuery.startEpocSecond(),
-                                                                               searchQuery.endEpocSecond())
-                                                     .stream()
-                                                     .map(EventCsv::of)
-                                                     .toList();
+        final List<EventCsv> events = repository.findAllByAppTokenAndDate(searchQuery.appToken(),
+                                                                          searchQuery.startEpocSecond(),
+                                                                          searchQuery.endEpocSecond())
+                                                .stream()
+                                                .map(EventCsv::of)
+                                                .toList();
         return new CsvData(searchQuery.activityKind(),
                            searchQuery.zoneId(),
                            events);

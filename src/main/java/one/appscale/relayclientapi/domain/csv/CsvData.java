@@ -2,7 +2,7 @@ package one.appscale.relayclientapi.domain.csv;
 
 import one.appscale.relayclientapi.common.support.DateTimeSupport;
 import one.appscale.relayclientapi.domain.csv.exception.CsvNoDataException;
-import one.appscale.relaydomain.domain.ActivityKind;
+import one.appscale.relaycommon.ActivityKind;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
