@@ -28,6 +28,11 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: maven-settings
+      uses: s4u/maven-settings-action@v2
+      with:
+        servers: '[{"username": "${APPSCALE_REPSY_USERNAME}", "password": "${APPSCALE_REPSY_PASSWORD}"}]'
+        githubServer: false
     - name: Build with Gradle
       env:
         APPSCALE_REPSY_USERNAME: '${{ secrets.APPSCALE_REPSY_USERNAME }}'
