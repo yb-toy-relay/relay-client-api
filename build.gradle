@@ -13,8 +13,8 @@ repositories {
     maven {
         url "https://repo.repsy.io/mvn/appscale/libs/"
         credentials {
-            username appscaleRepsyUsername ?: System.getenv("APPSCALE_REPSY_USERNAME")
-            password appscaleRepsyPassword ?: System.getenv("APPSCALE_REPSY_PASSWORD")
+            username appscaleRepsyUsername ?: username
+            password appscaleRepsyPassword ?: password
         }
     }
 }
