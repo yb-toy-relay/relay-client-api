@@ -1,6 +1,6 @@
 package one.appscale.relayclientapi.api.v1.dto;
 
-import one.appscale.relayclientapi.domain.search.ActivityLogSearchQuery;
+import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
 import one.appscale.relaydomain.domain.ActivityKind;
 import org.springframework.format.annotation.DateTimeFormat;
 

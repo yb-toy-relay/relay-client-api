@@ -21,7 +21,6 @@ public record Install(ObjectId id,
                       DeviceDetail deviceDetail,
                       EnvironmentInfo environmentInfo,
                       FacebookReferrerInfo facebookReferrerInfo) {
-
     public static Install of(final ObjectId id,
                              final ActivityKey activityKey,
                              final AppInfo appInfo,

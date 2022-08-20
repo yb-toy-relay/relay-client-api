@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.domain.search;
+package one.appscale.relayclientapi.domain.activitylog;
 
 import one.appscale.relayclientapi.common.support.DateTimeSupport;
 import one.appscale.relaydomain.domain.ActivityKind;
