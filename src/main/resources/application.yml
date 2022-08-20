@@ -13,7 +13,7 @@ logging:
     root: info
 
 server:
-  port: 8881
+  port: 8882
 
 spring:
   application:
