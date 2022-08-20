@@ -28,15 +28,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: maven-settings
-      uses: s4u/maven-settings-action@v2
-      with:
-        servers: '[{"id": "github", "username": "${APPSCALE_REPSY_USERNAME}", "password": "${APPSCALE_REPSY_PASSWORD}"}]'
-        githubServer: false
     - name: Build with Gradle
-      env:
-        APPSCALE_REPSY_USERNAME: '${{ secrets.APPSCALE_REPSY_USERNAME }}'
-        APPSCALE_REPSY_PASSWORD: '${{ secrets.APPSCALE_REPSY_PASSWORD }}'
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build
+        arguments: build -PappscaleRepsyUsername='${{ secrets.APPSCALE_REPSY_USERNAME }}'

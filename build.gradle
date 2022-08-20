@@ -13,8 +13,8 @@ repositories {
     maven {
         url "https://repo.repsy.io/mvn/appscale/libs/"
         credentials {
-            username appscaleRepsyUsername ?: username
-            password appscaleRepsyPassword ?: password
+            username appscaleRepsyUsername
+            password appscaleRepsyPassword
         }
     }
 }
