@@ -12,7 +12,6 @@ import one.appscale.relayschema.domain.EngagementInfo;
 import one.appscale.relayschema.domain.EnvironmentInfo;
 import one.appscale.relayschema.domain.FacebookReferrerInfo;
 import one.appscale.relayschema.domain.ReattributionInfo;
-import one.appscale.relayschema.domain.reattribution.Reattribution;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

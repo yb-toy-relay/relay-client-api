@@ -3,7 +3,6 @@ package one.appscale.relayclientapi.domain.event;
 import com.google.common.collect.Lists;
 import lombok.Builder;
 import one.appscale.relayclientapi.domain.csv.Csv;
-import one.appscale.relaycommon.ActivityKind;
 import one.appscale.relayschema.domain.ActivityKey;
 import one.appscale.relayschema.domain.AppInfo;
 import one.appscale.relayschema.domain.ChannelInfo;
