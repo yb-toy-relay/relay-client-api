@@ -1,0 +1,39 @@
+app:
+  mongodb:
+    protocol: mongodb
+    user: admin
+    password: admin
+    host: localhost:27011
+    dbname: relaydb
+  env:
+    encrypt-password: ${ENCRYPT_PASSWORD}
+
+logging:
+  level:
+    root: info
+
+server:
+  port: 8888
+
+spring:
+  application:
+    name: appscale-relay-api
+  data:
+    mongodb:
+      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
+      auto-index-creation: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+jasypt:
+  encryptor:
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    algorithm: PBEWithMD5AndDES
+    password: ${app.env.encrypt-password}
