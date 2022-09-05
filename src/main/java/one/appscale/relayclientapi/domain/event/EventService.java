@@ -23,6 +23,9 @@ public class EventService implements ActivityLogProvider {
                                                 .toList();
         return new CsvData(searchQuery.activityKind(),
                            searchQuery.zoneId(),
+                           searchQuery.appToken(),
+                           searchQuery.startDate(),
+                           searchQuery.endDate(),
                            events);
     }
 }
