@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/relay-client/v1")
+@RequestMapping("/v1/callback")
 public class CsvDownloadController {
     private final CsvService csvService;
 
