@@ -18,7 +18,7 @@ phases:
 artifacts:
   files:
     - relay-client-api-*.jar
-    - ./.ebextensions/custom.config
+    - .ebextensions/**/*
   discard-paths: no
 cache:
   paths:
