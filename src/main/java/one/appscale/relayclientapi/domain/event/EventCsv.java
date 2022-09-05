@@ -16,6 +16,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import static one.appscale.relayclientapi.common.support.DateTimeSupport.epochSecondToLocalDateTimeString;
+
 public record EventCsv(long createdAt,
                        String activityKind,
                        String appToken,
@@ -116,7 +118,7 @@ public record EventCsv(long createdAt,
     @Override
     public List<Object> body(String zoneId) {
         return Lists.newArrayList(
-            createdAt,
+            epochSecondToLocalDateTimeString(createdAt, zoneId),
             activityKind,
             appToken,
             appId,

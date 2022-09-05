@@ -134,7 +134,7 @@ public record InstallCsv(long createdAt,
     @Override
     public List<Object> body(String zoneId) {
         return Lists.newArrayList(
-            createdAt,
+            epochSecondToLocalDateTimeString(createdAt, zoneId),
             activityKind,
             appToken,
             appId,
