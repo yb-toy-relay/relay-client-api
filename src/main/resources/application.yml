@@ -20,7 +20,7 @@ spring:
     name: relay-client-api
   data:
     mongodb:
-      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
+      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}?authSource=admin
       auto-index-creation: true
 
 management:
