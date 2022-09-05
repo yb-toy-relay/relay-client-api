@@ -1,0 +1,25 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    APPSCALE_REPSY_USERNAME: "appscale/repsy:APPSCALE_REPSY_USERNAME"
+    APPSCALE_REPSY_PASSWORD: "appscale/repsy:APPSCALE_REPSY_PASSWORD"
+phases:
+  build:
+    commands:
+      - echo Build Starting on `date`
+      - chmod +x ./gradlew
+      - ./gradlew build -PappscaleRepsyUsername="$APPSCALE_REPSY_USERNAME" -PappscaleRepsyPassword="$APPSCALE_REPSY_PASSWORD"
+      - cp ./build/libs/* .
+  post_build:
+    commands:
+      - echo $(basename ./build/libs/*.jar)
+      - pwd
+artifacts:
+  files:
+    - relay-client-api-*.jar
+    - ./.ebextensions/custom.config
+  discard-paths: no
+cache:
+  paths:
+    - '/root/.gradle/caches/**/*'

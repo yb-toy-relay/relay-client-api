@@ -17,7 +17,7 @@ server:
 
 spring:
   application:
-    name: appscale-relay-api
+    name: relay-client-api
   data:
     mongodb:
       uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
