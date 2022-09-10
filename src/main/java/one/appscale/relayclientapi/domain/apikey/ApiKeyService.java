@@ -2,6 +2,7 @@ package one.appscale.relayclientapi.domain.apikey;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiKeyService {
     private final ApiKeyRepository repository;
+
+    public void checkValidRequest(final String apiKey, final String appToken) {
+        repository.findApiKeyDocumentByApiKey(apiKey)
+                  .filter(doc -> doc.hasAppToken(appToken))
+                  .stream()
+                  .findAny()
+                  .orElseThrow(ApiUnauthorizedException::new);
+    }
 
     public List<String> getOwners() {
         return repository.findAllBy()

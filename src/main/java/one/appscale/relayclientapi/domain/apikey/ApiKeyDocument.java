@@ -56,8 +56,10 @@ public class ApiKeyDocument {
         return this;
     }
 
-    public ApiKeyDocument updateOwner(final String owner) {
-        this.owner = owner;
-        return this;
+    public boolean hasAppToken(final String appToken) {
+        if (this.appTokens == null) {
+            return false;
+        }
+        return this.appTokens.contains(appToken);
     }
 }

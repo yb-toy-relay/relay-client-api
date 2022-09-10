@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record CsvDownloadRequest(@NotNull ActivityKind activityKind,
+                                 @NotEmpty String apiKey,
                                  @NotEmpty String appToken,
                                  @NotNull @DateTimeFormat(pattern = "yyyyMMdd") LocalDate startDate,
                                  @NotNull @DateTimeFormat(pattern = "yyyyMMdd") LocalDate endDate,
