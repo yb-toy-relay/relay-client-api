@@ -16,16 +16,24 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/dev/keys/owners")
+@RequestMapping("/dev/keys")
 public class ApiKeyController {
     private final ApiKeyService service;
 
-    @GetMapping
+    @GetMapping("/{apiKey}")
+    public ApiKeyResponse getOwnerByKey(@PathVariable("apiKey") String apiKey) {
+        final ApiKeyDocument doc = service.getOwnerByKey(apiKey);
+        return ApiKeyResponse.of(doc.getOwner(),
+                                 doc.getApiKey(),
+                                 doc.getAppTokens());
+    }
+
+    @GetMapping("/owners")
     public List<String> owners() {
         return service.getOwners();
     }
 
-    @GetMapping("/{owner}")
+    @GetMapping("/owners/{owner}")
     public ApiKeyResponse getKey(final @PathVariable("owner") String owner) {
         final ApiKeyDocument doc = service.getOwner(owner);
         return ApiKeyResponse.of(doc.getOwner(),
@@ -33,13 +41,13 @@ public class ApiKeyController {
                                  doc.getAppTokens());
     }
 
-    @PostMapping("/{owner}")
+    @PostMapping("/owners/{owner}")
     public ApiKeyResponse addKey(final @PathVariable("owner") String owner) {
         final ApiKeyDocument doc = service.addOwner(owner);
         return ApiKeyResponse.of(doc.getOwner(), doc.getApiKey());
     }
 
-    @PostMapping("/{owner}/{appToken}")
+    @PostMapping("/owners/{owner}/{appToken}")
     public ApiKeyResponse addAppToken(final @PathVariable("owner") String owner,
                                       final @PathVariable("appToken") String appToken) {
         final ApiKeyDocument doc = service.addAppToken(owner, appToken);
@@ -48,7 +56,7 @@ public class ApiKeyController {
                                  doc.getAppTokens());
     }
 
-    @DeleteMapping("/{owner}/{appToken}")
+    @DeleteMapping("/owners/{owner}/{appToken}")
     public ApiKeyResponse removeAppToken(final @PathVariable("owner") String owner,
                                          final @PathVariable("appToken") String appToken) {
         final ApiKeyDocument doc = service.removeAppToken(owner, appToken);

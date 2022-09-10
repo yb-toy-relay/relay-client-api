@@ -21,6 +21,11 @@ public class ApiKeyService {
                   .orElseThrow(ApiUnauthorizedException::new);
     }
 
+    public ApiKeyDocument getOwnerByKey(final String apiKey) {
+        return repository.findApiKeyDocumentByApiKey(apiKey)
+                         .orElseThrow(OwnerNotFoundException::new);
+    }
+
     public List<String> getOwners() {
         return repository.findAllBy()
                          .stream()
