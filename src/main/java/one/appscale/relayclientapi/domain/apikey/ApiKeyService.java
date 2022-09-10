@@ -4,11 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ApiKeyService {
     private final ApiKeyRepository repository;
+
+    public List<String> getOwners() {
+        return repository.findAllBy()
+                         .stream()
+                         .map(ApiKeyDocument::getOwner)
+                         .toList();
+    }
 
     public ApiKeyDocument getOwner(final String owner) {
         return repository.findApiKeyDocumentByOwner(owner)
