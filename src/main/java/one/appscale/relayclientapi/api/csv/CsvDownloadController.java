@@ -1,7 +1,7 @@
-package one.appscale.relayclientapi.api.v1;
+package one.appscale.relayclientapi.api.csv;
 
 import lombok.RequiredArgsConstructor;
-import one.appscale.relayclientapi.api.v1.dto.CsvDownloadRequest;
+import one.appscale.relayclientapi.api.csv.CsvDownloadRequest;
 import one.appscale.relayclientapi.domain.csv.CsvData;
 import one.appscale.relayclientapi.domain.csv.CsvResource;
 import one.appscale.relayclientapi.domain.csv.CsvService;

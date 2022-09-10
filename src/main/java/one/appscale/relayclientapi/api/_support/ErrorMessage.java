@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.api.support;
+package one.appscale.relayclientapi.api._support;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

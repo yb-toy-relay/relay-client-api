@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.api.v1.dto;
+package one.appscale.relayclientapi.api.csv;
 
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
 import one.appscale.relaycommon.ActivityKind;

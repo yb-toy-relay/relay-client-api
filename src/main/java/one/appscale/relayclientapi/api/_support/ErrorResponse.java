@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.api.support;
+package one.appscale.relayclientapi.api._support;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

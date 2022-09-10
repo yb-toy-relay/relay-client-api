@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.api.support;
+package one.appscale.relayclientapi.api._support;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
