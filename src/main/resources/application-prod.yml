@@ -18,6 +18,10 @@ spring:
       bootstrap-servers: b-1.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092,b-2.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: com.amazonaws.services.schemaregistry.serializers.avro.AWSKafkaAvroSerializer
+    consumer:
+      bootstrap-servers: b-1.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092,b-2.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.amazonaws.services.schemaregistry.deserializers.avro.AWSKafkaAvroDeserializer
     properties:
       schema.registry.url: aws-glue-schema-registry-has-no-http-endpoint
       region: ap-northeast-2
