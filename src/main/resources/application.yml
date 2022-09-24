@@ -7,6 +7,14 @@ app:
     dbname: relaydb
   env:
     encrypt-password: ${ENCRYPT_PASSWORD}
+  consumer:
+    request-activity-log-csv-v1:
+      container-config:
+        group-id: activity-log-request-consumer
+        idle-between-polls: 0s
+      retry:
+        interval: 5s
+        max-attempts: 3
 
 logging:
   level:
@@ -27,8 +35,15 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
     properties:
       schema.registry.url: http://localhost:8081
+      specific.avro.reader: true
 
 management:
   endpoints:
