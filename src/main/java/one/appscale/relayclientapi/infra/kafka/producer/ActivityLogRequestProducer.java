@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ActivityLogRequestProducer {
-    private static final String topic = "request-activity-log-csv-v1";
+    public static final String TOPIC = "request-activity-log-csv-v1";
 
-    private final KafkaTemplate<Long, ActivityLogCsvRequest> kafkaTemplate;
+    private final KafkaTemplate<String, ActivityLogCsvRequest> kafkaTemplate;
 
     public void sendCsvRequest(final ActivityLogCsvRequest activityLogCsvRequest) {
-        kafkaTemplate.send(topic, activityLogCsvRequest);
-        log.info("csv request sent. topic:{}, data:{}", topic, activityLogCsvRequest);
+        kafkaTemplate.send(TOPIC, activityLogCsvRequest);
+        log.info("csv request sent. topic:{}, data:{}", TOPIC, activityLogCsvRequest);
     }
 }
