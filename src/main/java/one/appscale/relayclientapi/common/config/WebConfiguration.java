@@ -32,6 +32,7 @@ public class WebConfiguration implements WebMvcConfigurer,
                 .allowCredentials(true);
     }
 
+    @Deprecated
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new ActivityKindEnumConverter());

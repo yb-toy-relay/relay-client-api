@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Deprecated
 public record CsvDownloadRequest(@NotNull ActivityKind activityKind,
                                  @NotEmpty String apiKey,
                                  @NotEmpty String appToken,

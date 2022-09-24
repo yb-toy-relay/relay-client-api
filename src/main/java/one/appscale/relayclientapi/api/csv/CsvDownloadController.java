@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Deprecated
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +23,6 @@ import javax.validation.Valid;
 public class CsvDownloadController {
     private final CsvService csvService;
     private final ApiKeyService apiKeyService;
-
     @GetMapping(value = "/csv", produces = "text/csv")
     public ResponseEntity<Resource> exportCsv(@Valid final CsvDownloadRequest request) {
         apiKeyService.checkValidRequest(request.apiKey(), request.appToken());
