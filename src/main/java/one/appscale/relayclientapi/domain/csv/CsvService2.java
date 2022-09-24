@@ -19,21 +19,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CsvService {
+public class CsvService2 {
     private final ActivityLogProviderFactory factory;
 
-    public CsvData getCsvDataBy(final ActivityLogSearchQuery searchQuery) {
+    private CsvData getCsvDataBy(final ActivityLogSearchQuery searchQuery) {
         final ActivityKind activityKind = searchQuery.activityKind();
         final ActivityLogProvider provider = factory.getProvider(activityKind);
         return provider.getCsvData(searchQuery);
     }
 
-    public CsvResource getCsvResource(final CsvData csvData) {
+    public CsvResource2 getCsvResource(final ActivityLogSearchQuery searchQuery) {
+        final CsvData csvData = getCsvDataBy(searchQuery);
         final CSVFormat csvFormat = CSVFormat.Builder.create()
                                                      .setHeader(csvData.getHeaders())
                                                      .build();
         final List<List<Object>> bodies = csvData.getBodies();
-        final String fileName = csvData.getFileName();
+        final CsvMetadata csvFileName = csvData.getCsvMetadata();
         try (
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), csvFormat)
@@ -44,10 +45,9 @@ public class CsvService {
             csvPrinter.flush();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(out.toByteArray());
             final InputStreamResource inputStreamResource = new InputStreamResource(byteArrayInputStream);
-            return new CsvResource(inputStreamResource, fileName);
+            return new CsvResource2(inputStreamResource.getInputStream(), csvFileName);
         } catch (IOException e) {
             throw new CsvException(e.getMessage());
         }
     }
-
 }

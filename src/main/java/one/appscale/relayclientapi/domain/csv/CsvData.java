@@ -43,4 +43,12 @@ public record CsvData(ActivityKind activityKind,
                              zoneId(),
                              randomAlphanumeric);
     }
+
+    public CsvMetadata getCsvMetadata() {
+        return new CsvMetadata(appToken,
+                               activityKind.value(),
+                               localDateToString(startDate),
+                               localDateToString(endDate),
+                               DateTimeSupport.getZoneIdOrDefault(zoneId));
+    }
 }
