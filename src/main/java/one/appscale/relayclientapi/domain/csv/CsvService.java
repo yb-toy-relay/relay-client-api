@@ -22,6 +22,10 @@ import java.util.List;
 public class CsvService {
     private final ActivityLogProviderFactory factory;
 
+    public CsvResource getCsvResource(final ActivityLogSearchQuery searchQuery) {
+        return getCsvResource(getCsvDataBy(searchQuery));
+    }
+
     public CsvData getCsvDataBy(final ActivityLogSearchQuery searchQuery) {
         final ActivityKind activityKind = searchQuery.activityKind();
         final ActivityLogProvider provider = factory.getProvider(activityKind);
