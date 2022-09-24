@@ -31,6 +31,7 @@ spring:
       compression: NONE
       timeToLiveMillis: 86400000
       cacheSize: 200
+      avroRecordType: SPECIFIC_RECORD
 
 management:
   endpoints:
