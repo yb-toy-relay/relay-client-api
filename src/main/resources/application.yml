@@ -48,6 +48,8 @@ aws:
   credentials:
     access-key-id: ${AWS_ACCESS_KEY}
     secret-access-key: ${AWS_SECRET_KEY}
+  s3:
+    bucket: dev-relay-content
 management:
   endpoints:
     web:
