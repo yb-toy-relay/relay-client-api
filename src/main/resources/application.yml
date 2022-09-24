@@ -44,7 +44,10 @@ spring:
     properties:
       schema.registry.url: http://localhost:8081
       specific.avro.reader: true
-
+aws:
+  credentials:
+    access-key-id: ${AWS_ACCESS_KEY}
+    secret-access-key: ${AWS_SECRET_KEY}
 management:
   endpoints:
     web:
