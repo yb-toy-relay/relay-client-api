@@ -16,6 +16,6 @@ public class ActivityLogRequestProducer {
 
     public void sendCsvRequest(final ActivityLogCsvRequest activityLogCsvRequest) {
         kafkaTemplate.send(TOPIC, activityLogCsvRequest);
-        log.info("csv request sent. topic:{}, data:{}", TOPIC, activityLogCsvRequest);
+        log.info("produce ActivityLogCsvRequest. topic:{}, data:{}", TOPIC, activityLogCsvRequest);
     }
 }
