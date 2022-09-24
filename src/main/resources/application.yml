@@ -22,6 +22,13 @@ spring:
     mongodb:
       uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}?authSource=admin
       auto-index-creation: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      schema.registry.url: http://localhost:8081
 
 management:
   endpoints:

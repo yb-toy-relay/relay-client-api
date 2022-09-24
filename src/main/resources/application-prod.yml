@@ -13,6 +13,20 @@ spring:
   data:
     mongodb:
       auto-index-creation: false
+  kafka:
+    producer:
+      bootstrap-servers: b-1.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092,b-2.prodrelaykafka.4g9fmo.c4.kafka.ap-northeast-2.amazonaws.com:9092
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: com.amazonaws.services.schemaregistry.serializers.avro.AWSKafkaAvroSerializer
+    properties:
+      schema.registry.url: aws-glue-schema-registry-has-no-http-endpoint
+      region: ap-northeast-2
+      registry.name: prod-relay-schema-registry
+      schemaAutoRegistrationEnabled: true
+      compatibility: FULL
+      compression: NONE
+      timeToLiveMillis: 86400000
+      cacheSize: 200
 
 management:
   endpoints:
