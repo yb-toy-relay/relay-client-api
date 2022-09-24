@@ -32,6 +32,7 @@ public class DateTimeSupport {
     }
 
     public static String getZoneIdOrDefault(final String zoneId) {
-        return isBlank(zoneId) ? "UTC" : zoneId;
+        final ZoneId validZoneId = ZoneId.of(zoneId);
+        return isBlank(zoneId) ? "UTC" : validZoneId.toString();
     }
 }
