@@ -2,7 +2,7 @@ package one.appscale.relayclientapi.api.activitylog;
 
 import lombok.RequiredArgsConstructor;
 import one.appscale.relayclientapi.domain.apikey.ApiKeyService;
-import one.appscale.relayclientapi.infra.kafka.ActivityLogRequestProducer;
+import one.appscale.relayclientapi.infra.kafka.producer.ActivityLogRequestProducer;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

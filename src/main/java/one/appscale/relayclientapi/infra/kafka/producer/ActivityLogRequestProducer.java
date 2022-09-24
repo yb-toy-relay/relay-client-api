@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.infra.kafka;
+package one.appscale.relayclientapi.infra.kafka.producer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
