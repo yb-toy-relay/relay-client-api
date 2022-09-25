@@ -46,7 +46,7 @@ public class CsvNotificationService {
             "presignedUrl", presignedUrl.toString()
         );
         final String title = """
-            [AppScale] Raw Data: {%s}_{%s}_{%s}-{%s}
+            [AppScale] Raw Data: %s_%s_%s-%s
             """.formatted(userMetadata.appToken(),
                           userMetadata.activityKind(),
                           userMetadata.startDate(),
