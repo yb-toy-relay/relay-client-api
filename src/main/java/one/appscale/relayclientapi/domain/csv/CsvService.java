@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CsvService2 {
+public class CsvService {
     private final ActivityLogProviderFactory factory;
 
     private CsvData getCsvDataBy(final ActivityLogSearchQuery searchQuery) {
@@ -28,13 +28,13 @@ public class CsvService2 {
         return provider.getCsvData(searchQuery);
     }
 
-    public CsvResource2 getCsvResource(final ActivityLogSearchQuery searchQuery) {
+    public CsvResource getCsvResource(final ActivityLogSearchQuery searchQuery) {
         final CsvData csvData = getCsvDataBy(searchQuery);
         final CSVFormat csvFormat = CSVFormat.Builder.create()
                                                      .setHeader(csvData.getHeaders())
                                                      .build();
         final List<List<Object>> bodies = csvData.getBodies();
-        final CsvMetadata csvFileName = csvData.getCsvMetadata();
+        final CsvMetadata csvMetadata = csvData.getCsvMetadata();
         try (
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), csvFormat)
@@ -45,7 +45,7 @@ public class CsvService2 {
             csvPrinter.flush();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(out.toByteArray());
             final InputStreamResource inputStreamResource = new InputStreamResource(byteArrayInputStream);
-            return new CsvResource2(inputStreamResource.getInputStream(), csvFileName);
+            return new CsvResource(inputStreamResource.getInputStream(), csvMetadata);
         } catch (IOException e) {
             throw new CsvException(e.getMessage());
         }
