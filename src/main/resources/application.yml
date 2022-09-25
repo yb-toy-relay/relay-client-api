@@ -1,4 +1,6 @@
 app:
+  api-key:
+    master: q8Qkw2Ie6YwRNUNWkGtg
   mongodb:
     protocol: mongodb
     user: admin

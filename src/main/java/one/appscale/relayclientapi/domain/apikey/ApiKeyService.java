@@ -3,6 +3,7 @@ package one.appscale.relayclientapi.domain.apikey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.List;
 public class ApiKeyService {
     private final ApiKeyRepository repository;
 
-    private static final String master = "q8Qkw2Ie6YwRNUNWkGtg";
+    @Value("${app.api-key.master}")
+    private String master;
 
     public void checkValidRequest(final String apiKey, final String appToken) {
         if (apiKey.equals(master)) {
