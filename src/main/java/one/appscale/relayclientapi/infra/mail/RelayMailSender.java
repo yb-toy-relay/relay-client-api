@@ -13,13 +13,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.internet.MimeMessage;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class RelayMailSender {
-    @Value("${app.mail.user}")
-    private String from;
-
     private final JavaMailSender sender;
     private final SpringTemplateEngine templateEngine;
 
