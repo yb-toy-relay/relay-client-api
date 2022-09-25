@@ -1,6 +1,7 @@
 package one.appscale.relayclientapi.domain.csv;
 
 import one.appscale.relayclientapi.infra.aws.s3.S3KeyPrefix;
+import one.appscale.relayclientapi.infra.aws.s3.UserMetadata;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public record CsvMetadata(String appToken,
@@ -38,5 +39,14 @@ public record CsvMetadata(String appToken,
                              S3KeyPrefix.ACTIVITY_LOG_CSV.getPrefix(),
                              appToken,
                              getFileName());
+    }
+
+    public UserMetadata toUserMetadata(final String email) {
+        return new UserMetadata(email,
+                                activityKind,
+                                appToken,
+                                startDate,
+                                endDate,
+                                zoneId);
     }
 }

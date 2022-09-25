@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 
-import static one.appscale.relayclientapi.infra.aws.s3.helper.ObjectMetadataFactory.UserMetadataKeys.MAIL_TO;
+import static one.appscale.relayclientapi.infra.aws.s3.UserMetadata.Keys.MAIL_TO;
 
 @Slf4j
 @RequiredArgsConstructor

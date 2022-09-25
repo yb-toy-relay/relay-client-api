@@ -1,18 +1,17 @@
 package one.appscale.relayclientapi.infra.aws.s3.helper;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import one.appscale.relayclientapi.domain.csv.CsvMetadata;
 
 import java.util.Map;
 
 public class ObjectMetadataFactory {
-    public static class UserMetadataKeys {
-        public static final String MAIL_TO = "mailTo";
-    }
-
-    public static ObjectMetadata csvNotifiableObjectMetadata(final String mailTo) {
+    public static ObjectMetadata csvNotifiableObjectMetadata(final String email,
+                                                             final CsvMetadata csvMetadata) {
         final ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType("text/csv");
-        objectMetadata.setUserMetadata(Map.of(UserMetadataKeys.MAIL_TO, mailTo));
+        final Map<String, String> userMetadata = csvMetadata.toUserMetadata(email).toMap();
+        objectMetadata.setUserMetadata(userMetadata);
         return objectMetadata;
     }
 }

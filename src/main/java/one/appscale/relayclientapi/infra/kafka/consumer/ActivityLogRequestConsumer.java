@@ -1,5 +1,6 @@
 package one.appscale.relayclientapi.infra.kafka.consumer;
 
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
@@ -26,6 +27,8 @@ public class ActivityLogRequestConsumer {
     public void consumeActivityLogCsvRequest(final ConsumerRecord<String, ActivityLogCsvRequest> record) {
         log.info("consume ActivityLogCsvRequest. record:{}", record);
         final CsvResource csvResource = csvService.getCsvResource(ActivityLogSearchQuery.of(record.value()));
-        relayS3Client.putObject(csvResource, csvNotifiableObjectMetadata(record.value().getEmail()));
+        final ObjectMetadata objectMetadata = csvNotifiableObjectMetadata(record.value().getEmail(),
+                                                                          csvResource.csvMetadata());
+        relayS3Client.putObject(csvResource, objectMetadata);
     }
 }
