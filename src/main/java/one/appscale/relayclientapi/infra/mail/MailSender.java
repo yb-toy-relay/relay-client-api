@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.domain.notification;
+package one.appscale.relayclientapi.infra.mail;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class RelayMailSender {
+public class MailSender {
     @Value("${app.mail.user}")
     private String from;
 
