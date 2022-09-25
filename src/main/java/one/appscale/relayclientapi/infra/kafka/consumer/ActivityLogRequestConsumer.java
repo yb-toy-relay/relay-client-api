@@ -8,6 +8,7 @@ import one.appscale.relayclientapi.domain.csv.CsvService2;
 import one.appscale.relayclientapi.infra.aws.s3.RelayS3Client;
 import one.appscale.relayclientapi.infra.kafka.producer.ActivityLogRequestProducer;
 import one.appscale.relayschema.request.csv.ActivityLogCsvRequest;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,9 @@ public class ActivityLogRequestConsumer {
 
     @KafkaListener(topics = ActivityLogRequestProducer.TOPIC,
                    containerFactory = "activityLogRequestConsumerFactory")
-    public void consumeActivityLogCsvRequest(final ActivityLogCsvRequest request) {
-        log.info("consume ActivityLogCsvRequest: {}", request);
-        final CsvResource2 csvResource = csvService.getCsvResource(ActivityLogSearchQuery.of(request));
-        relayS3Client.putObject(csvResource, csvNotifiableObjectMetadata(request.getEmail()));
+    public void consumeActivityLogCsvRequest(final ConsumerRecord<String, ActivityLogCsvRequest> record) {
+        log.info("consume ActivityLogCsvRequest. record:{}", record);
+        final CsvResource2 csvResource = csvService.getCsvResource(ActivityLogSearchQuery.of(record.value()));
+        relayS3Client.putObject(csvResource, csvNotifiableObjectMetadata(record.value().getEmail()));
     }
 }
