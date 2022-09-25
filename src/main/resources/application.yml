@@ -2,8 +2,8 @@ app:
   api-key:
     master: q8Qkw2Ie6YwRNUNWkGtg
   mail:
-    user: dev.appscale@gmail.com
-    password: ENC(rL5H8LXdbFqtFSykb8vQD9f04Oqj2gY1XSkamVXuO1Q=)
+    user: admin@appscale.cloud
+    password: ENC(Jy+6lFTugenJHzIM87O8woySCyxLLtBBmNl4HBAEbak=)
   mongodb:
     protocol: mongodb
     user: admin
