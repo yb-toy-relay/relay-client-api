@@ -5,13 +5,11 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
-import one.appscale.relayclientapi.api._converter.ActivityKindEnumConverter;
 import one.appscale.relayclientapi.common.support.DateTimeSupport;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,12 +28,6 @@ public class WebConfiguration implements WebMvcConfigurer,
                                        "https://*.appscale.one")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH")
                 .allowCredentials(true);
-    }
-
-    @Deprecated
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new ActivityKindEnumConverter());
     }
 
     @Override
