@@ -8,7 +8,7 @@ public record UserMetadata(String email,
                            String startDate,
                            String endDate,
                            String zoneId) {
-    public static final UserMetadata EMPTY = new UserMetadata("","","","","","");
+    public static final UserMetadata EMPTY = new UserMetadata("", "", "", "", "", "");
 
     public static class Keys {
         public static final String MAIL_TO = "mailTo";
@@ -30,8 +30,10 @@ public record UserMetadata(String email,
         );
     }
 
-    // TODO RA-92
     public static UserMetadata of(final Map<String, String> userMetadataMap) {
+        if (userMetadataMap.isEmpty()) {
+            return EMPTY;
+        }
         return new UserMetadata(userMetadataMap.get(Keys.MAIL_TO),
                                 userMetadataMap.get(Keys.ACTIVITY_KIND),
                                 userMetadataMap.get(Keys.APP_TOKEN),

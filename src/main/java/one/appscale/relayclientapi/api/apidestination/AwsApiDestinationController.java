@@ -38,6 +38,9 @@ public class AwsApiDestinationController {
         }
         final String objectKey = event.detail().object().key();
         final UserMetadata userMetadata = csvNotificationService.getUserMetadataFromS3Object(objectKey);
+        if (userMetadata.isEmpty()) {
+            throw new UserMetadataEmptyException(objectKey);
+        }
         final URL url = csvNotificationService.generatePresignedUrl(objectKey);
         csvNotificationService.sendPresignedUrl(userMetadata, url);
     }
