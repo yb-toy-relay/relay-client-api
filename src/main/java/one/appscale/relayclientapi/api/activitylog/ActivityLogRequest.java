@@ -15,7 +15,7 @@ public record ActivityLogRequest(@NotEmpty String activityKind,
                                  @NotNull @JsonFormat(pattern = "yyyyMMdd") LocalDate startDate,
                                  @NotNull @JsonFormat(pattern = "yyyyMMdd") LocalDate endDate,
                                  String timezone,
-                                 @Email String email) {
+                                 @NotEmpty @Email String email) {
     public ActivityLogCsvRequest toActivityLogCsvRequest() {
         return ActivityLogCsvRequest.newBuilder()
                                     .setActivityKind(ActivityKind.fromValue(activityKind).value())
