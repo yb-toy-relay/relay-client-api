@@ -54,9 +54,7 @@ public class RelayS3Client {
             .withMethod(HttpMethod.GET)
             .withExpiration(initPresignedUrlExpiration());
         try {
-            final URL presignedUrl = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
-            log.info("generated presigned Url:{}", presignedUrl);
-            return presignedUrl;
+            return s3Client.generatePresignedUrl(generatePresignedUrlRequest);
         } catch (final RuntimeException e) {
             throw new S3GeneratePresignedUrlException(key, e);
         }
