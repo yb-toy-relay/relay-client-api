@@ -24,16 +24,6 @@ public class RelayMailSender {
     private final JavaMailSender sender;
     private final SpringTemplateEngine templateEngine;
 
-    public void sendMessage(final String mailTo, final String subject, final String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
-        message.setTo(mailTo);
-        message.setSubject(subject);
-        message.setText(text);
-        sender.send(message);
-        log.info("mail sent to:{}", mailTo);
-    }
-
     // TODO RA-96
     @SneakyThrows
     public void sendMimeMessage(final String mailTo,
