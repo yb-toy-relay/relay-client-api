@@ -26,18 +26,18 @@ public class AwsApiDestinationController {
     @Value("${app.api-key.master}")
     private String master;
 
-    private final CsvNotificationService s3NotificationService;
+    private final CsvNotificationService csvNotificationService;
 
     @PostMapping("/s3/object/created")
-    public String receiveS3ObjectCreatedEvent(
+    public void receiveS3ObjectCreatedEvent(
         @RequestHeader(HEADER_RELAY_CLIENT_API_KEY) String apiKey,
         @Valid @RequestBody EventBridgeS3ObjectCreated event) {
         if (!this.master.equals(apiKey)) {
             throw new ApiUnauthorizedException("Invalid api key");
         }
         final String objectKey = event.detail().object().key();
-        final String notificationEmail = s3NotificationService.getEmailFromS3Object(objectKey);
-        final URL url = s3NotificationService.generatePresignedUrl(objectKey);
-        return notificationEmail;
+        final String mailTo = csvNotificationService.getEmailFromS3Object(objectKey);
+        final URL url = csvNotificationService.generatePresignedUrl(objectKey);
+        csvNotificationService.sendPresignedUrl(mailTo, url);
     }
 }
