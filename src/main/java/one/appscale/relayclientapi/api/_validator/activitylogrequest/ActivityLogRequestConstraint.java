@@ -1,14 +1,14 @@
-package one.appscale.relayclientapi.api._validator.timezone;
+package one.appscale.relayclientapi.api._validator.activitylogrequest;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Constraint(validatedBy = TimeZoneValidator.class)
+@Constraint(validatedBy = ActivityLogRequestValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidTimeZone {
-    String message() default "not a valid timezone.";
+public @interface ActivityLogRequestConstraint {
+    String message() default "not a valid request.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

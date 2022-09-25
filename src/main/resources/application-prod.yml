@@ -5,6 +5,8 @@ app:
     password: ENC(9uNdlY2Ff+fs48Tb4pdDRvlSSRuF/fFtGuC/N+xgyIE=)
     host: prod-relay.jyryu.mongodb.net
     dbname: relaydb
+  constraints:
+    max-activity-log-request-range: 7
 
 server:
   port: 8080

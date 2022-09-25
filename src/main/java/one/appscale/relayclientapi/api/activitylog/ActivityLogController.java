@@ -1,6 +1,7 @@
 package one.appscale.relayclientapi.api.activitylog;
 
 import lombok.RequiredArgsConstructor;
+import one.appscale.relayclientapi.api._validator.activitylogrequest.ActivityLogRequestConstraint;
 import one.appscale.relayclientapi.domain.apikey.ApiKeyService;
 import one.appscale.relayclientapi.infra.kafka.producer.ActivityLogRequestProducer;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,9 @@ public class ActivityLogController {
     private final ActivityLogRequestProducer producer;
 
     @PostMapping(value = "/relay/v1/activity-log/csv")
-    public void produceCsvRequest(@Valid @RequestBody final ActivityLogRequest request) {
+    public void produceCsvRequest(@Valid
+                                  @ActivityLogRequestConstraint
+                                  @RequestBody final ActivityLogRequest request) {
         apiKeyService.checkValidRequest(request.apiKey(), request.appToken());
         producer.sendCsvRequest(request.toActivityLogCsvRequest());
     }
