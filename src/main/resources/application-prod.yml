@@ -38,6 +38,7 @@ spring:
 aws:
   s3:
     bucket: prod-relay-content
+    presigned-url-ttl: 24h
 management:
   endpoints:
     web:

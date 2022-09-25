@@ -51,6 +51,7 @@ spring:
 aws:
   s3:
     bucket: dev-relay-content
+    presigned-url-ttl: 1h
 management:
   endpoints:
     web:

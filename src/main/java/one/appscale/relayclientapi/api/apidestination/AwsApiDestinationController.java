@@ -3,7 +3,7 @@ package one.appscale.relayclientapi.api.apidestination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
-import one.appscale.relayclientapi.domain.notification.S3NotificationService;
+import one.appscale.relayclientapi.domain.csv.CsvNotificationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.net.URL;
 
 @Slf4j
 @Validated
@@ -25,7 +26,7 @@ public class AwsApiDestinationController {
     @Value("${app.api-key.master}")
     private String master;
 
-    private final S3NotificationService s3NotificationService;
+    private final CsvNotificationService s3NotificationService;
 
     @PostMapping("/s3/object/created")
     public String receiveS3ObjectCreatedEvent(
@@ -34,8 +35,9 @@ public class AwsApiDestinationController {
         if (!this.master.equals(apiKey)) {
             throw new ApiUnauthorizedException("Invalid api key");
         }
-        log.info("event: {}", event);
-        final String notificationEmail = s3NotificationService.getEmailFromS3Object(event.detail().object().key());
+        final String objectKey = event.detail().object().key();
+        final String notificationEmail = s3NotificationService.getEmailFromS3Object(objectKey);
+        final URL url = s3NotificationService.generatePresignedUrl(objectKey);
         return notificationEmail;
     }
 }
