@@ -3,6 +3,7 @@ package one.appscale.relayclientapi.api.apidestination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
+import one.appscale.relayclientapi.domain.notification.S3NotificationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 @RequestMapping("/api-destination")
 @RequiredArgsConstructor
 public class AwsApiDestinationController {
+    private static final String HEADER_RELAY_CLIENT_API_KEY = "Relay-Client-API-Key";
+
     @Value("${app.api-key.master}")
     private String master;
 
-    private static final String HEADER_RELAY_CLIENT_API_KEY = "Relay-Client-API-Key";
+    private final S3NotificationService s3NotificationService;
 
     @PostMapping("/s3/object/created")
     public String receiveS3ObjectCreatedEvent(
@@ -31,8 +34,8 @@ public class AwsApiDestinationController {
         if (!this.master.equals(apiKey)) {
             throw new ApiUnauthorizedException("Invalid api key");
         }
-
         log.info("event: {}", event);
-        return "OK";
+        final String notificationEmail = s3NotificationService.getEmailFromS3Object(event.detail().object().key());
+        return notificationEmail;
     }
 }
