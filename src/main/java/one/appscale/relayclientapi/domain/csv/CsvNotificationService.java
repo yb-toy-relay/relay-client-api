@@ -3,7 +3,8 @@ package one.appscale.relayclientapi.domain.csv;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import one.appscale.relayclientapi.infra.mail.MailSender;
+import one.appscale.relayclientapi.infra.mail.type.ActivityLogMimeMessage;
+import one.appscale.relayclientapi.infra.mail.RelayMailSender;
 import one.appscale.relayclientapi.infra.aws.s3.RelayS3Client;
 import one.appscale.relayclientapi.infra.aws.s3.UserMetadata;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import java.util.Map;
 @Component
 public class CsvNotificationService {
     private final RelayS3Client s3Client;
-    private final MailSender mailSender;
+    private final RelayMailSender mailSender;
 
     public UserMetadata getUserMetadataFromS3Object(final String objectKey) {
         final ObjectMetadata objectMetadata = s3Client.getObjectMetadata(objectKey);
@@ -37,23 +38,7 @@ public class CsvNotificationService {
     }
 
     public void sendPresignedUrl(final UserMetadata userMetadata, URL presignedUrl) {
-        final Map<String, String> variables = Map.of(
-            "activityKind", userMetadata.activityKind(),
-            "appToken", userMetadata.appToken(),
-            "startDate", userMetadata.startDate(),
-            "endDate", userMetadata.endDate(),
-            "timezone", userMetadata.zoneId(),
-            "presignedUrl", presignedUrl.toString()
-        );
-        final String title = """
-            [AppScale] Raw Data: %s_%s_%s-%s
-            """.formatted(userMetadata.appToken(),
-                          userMetadata.activityKind(),
-                          userMetadata.startDate(),
-                          userMetadata.endDate());
-        mailSender.sendMimeMessage(userMetadata.email(),
-                                   title,
-                                   "email-template",
-                                   variables);
+        final ActivityLogMimeMessage mimeMessage = ActivityLogMimeMessage.of(userMetadata, presignedUrl);
+        mailSender.sendMimeMessage(mimeMessage);
     }
 }
