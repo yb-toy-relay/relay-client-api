@@ -51,6 +51,12 @@ spring:
     properties:
       schema.registry.url: http://localhost:8081
       specific.avro.reader: true
+  thymeleaf:
+    prefix: classpath:/template/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    check-template-location: true
 aws:
   s3:
     bucket: dev-relay-content
