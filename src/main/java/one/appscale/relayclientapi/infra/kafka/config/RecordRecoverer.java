@@ -6,6 +6,6 @@ import org.springframework.kafka.listener.ConsumerRecordRecoverer;
 @Slf4j
 public class RecordRecoverer {
     public static ConsumerRecordRecoverer logAndSkipRecoverer() {
-        return (consumerRecord, exception) -> log.error("All retries failed. record:{}", consumerRecord, exception);
+        return (consumerRecord, exception) -> log.error("Retry failed on record:{}", consumerRecord, exception);
     }
 }

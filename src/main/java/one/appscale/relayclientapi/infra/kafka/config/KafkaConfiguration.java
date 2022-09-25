@@ -10,6 +10,7 @@ import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.listener.CommonErrorHandler;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.ExponentialBackOff;
 
@@ -24,7 +25,8 @@ public class KafkaConfiguration {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, ActivityLogCsvRequest> activityLogRequestConsumerFactory(
-        final ActivityLogCsvRequestProperties properties) {
+        final ActivityLogCsvRequestProperties properties,
+        final CommonErrorHandler errorHandler) {
         var factory = new ConcurrentKafkaListenerContainerFactory<String, ActivityLogCsvRequest>();
         factory.setConsumerFactory(consumerFactory);
         factory.setConcurrency(1);
@@ -33,6 +35,7 @@ public class KafkaConfiguration {
         var containerConfig = properties.containerConfig();
         factory.getContainerProperties().setIdleBetweenPolls(containerConfig.idleBetweenPolls().toMillis());
         factory.getContainerProperties().setGroupId(containerConfig.groupId());
+        factory.setCommonErrorHandler(errorHandler);
         return factory;
     }
 
@@ -40,7 +43,7 @@ public class KafkaConfiguration {
      * The maximum back off time must not exceed the max.poll.interval.ms consumer property,
      * to avoid a rebalance.
      */
-    public static final int MAXIMUM_RETRY_TIME_MILLS = 180_000; // 3분
+    public static final int MAXIMUM_RETRY_TIME_MILLS = 10_000;
 
     @Bean
     public DefaultErrorHandler defaultErrorHandler() {
