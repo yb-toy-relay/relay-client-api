@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
 import one.appscale.relayclientapi.domain.csv.CsvNotificationService;
+import one.appscale.relayclientapi.infra.aws.s3.UserMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +37,8 @@ public class AwsApiDestinationController {
             throw new ApiUnauthorizedException("Invalid api key");
         }
         final String objectKey = event.detail().object().key();
-        final String mailTo = csvNotificationService.getEmailFromS3Object(objectKey);
+        final UserMetadata userMetadata = csvNotificationService.getUserMetadataFromS3Object(objectKey);
         final URL url = csvNotificationService.generatePresignedUrl(objectKey);
-        csvNotificationService.sendPresignedUrl(mailTo, url);
+        csvNotificationService.sendPresignedUrl(userMetadata, url);
     }
 }
