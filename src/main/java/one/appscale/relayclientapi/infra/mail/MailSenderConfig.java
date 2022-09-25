@@ -25,6 +25,7 @@ public class MailSenderConfig {
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
+        props.put("mail.mime.charset", "UTF-8");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 

@@ -37,21 +37,23 @@ public class CsvNotificationService {
     }
 
     public void sendPresignedUrl(final UserMetadata userMetadata, URL presignedUrl) {
-        final String text = """
-            activityKind: %s
-            appToken: %s
-            startDate: %s
-            endDate: %s
-            timezone: %s
-            download url: %s
-            """.formatted(userMetadata.activityKind(),
-                          userMetadata.appToken(),
+        final Map<String, String> variables = Map.of(
+            "activityKind", userMetadata.activityKind(),
+            "appToken", userMetadata.appToken(),
+            "startDate", userMetadata.startDate(),
+            "endDate", userMetadata.endDate(),
+            "timezone", userMetadata.zoneId(),
+            "presignedUrl", presignedUrl.toString()
+        );
+        final String title = """
+            [AppScale] Raw Data: {%s}_{%s}_{%s}-{%s}
+            """.formatted(userMetadata.appToken(),
+                          userMetadata.activityKind(),
                           userMetadata.startDate(),
-                          userMetadata.endDate(),
-                          userMetadata.zoneId(),
-                          presignedUrl.toString());
-        mailSender.sendMessage(userMetadata.email(),
-                               "[appscale] activity kind csv",
-                               text);
+                          userMetadata.endDate());
+        mailSender.sendMimeMessage(userMetadata.email(),
+                                   title,
+                                   "email-template",
+                                   variables);
     }
 }
