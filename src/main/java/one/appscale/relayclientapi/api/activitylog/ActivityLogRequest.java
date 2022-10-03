@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public record ActivityLogRequest(@NotEmpty String activityKind,
                                  @NotEmpty String apiKey,
                                  @NotEmpty String appToken,
-                                 @NotNull @JsonFormat(pattern = "yyyyMMdd") LocalDate startDate,
-                                 @NotNull @JsonFormat(pattern = "yyyyMMdd") LocalDate endDate,
+                                 @NotNull @JsonFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                 @NotNull @JsonFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                  String timezone,
                                  @NotEmpty @Email String email) {
     public ActivityLogCsvRequest toActivityLogCsvRequest() {
