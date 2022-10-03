@@ -24,8 +24,9 @@ public class WebConfiguration implements WebMvcConfigurer,
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://*.appscale.one",
-                                       "https://*.appscale.one")
+                .allowedOriginPatterns("*")
+//                .allowedOriginPatterns("http://*.appscale.cloud",
+//                                       "https://*.appscale.cloud")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH")
                 .allowCredentials(true);
     }
