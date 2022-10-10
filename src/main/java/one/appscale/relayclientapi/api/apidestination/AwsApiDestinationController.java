@@ -24,8 +24,8 @@ import java.net.URL;
 public class AwsApiDestinationController {
     private static final String HEADER_RELAY_CLIENT_API_KEY = "Relay-Client-API-Key";
 
-    @Value("${app.api-key.master}")
-    private String master;
+    @Value("${aws.api-destination-key}")
+    private String awsApiDestinationKey;
 
     private final CsvNotificationService csvNotificationService;
 
@@ -33,7 +33,7 @@ public class AwsApiDestinationController {
     public void receiveS3ObjectCreatedEvent(
         @RequestHeader(HEADER_RELAY_CLIENT_API_KEY) String apiKey,
         @Valid @RequestBody EventBridgeS3ObjectCreated event) {
-        if (!this.master.equals(apiKey)) {
+        if (!this.awsApiDestinationKey.equals(apiKey)) {
             throw new ApiUnauthorizedException("Invalid api key");
         }
         final String objectKey = event.detail().object().key();

@@ -1,6 +1,6 @@
 app:
   api-key:
-    master: q8Qkw2Ie6YwRNUNWkGtg
+    master: WpETxvgaUhn0SXwrM6VU
   mail:
     user: admin@appscale.cloud
     password: ENC(Jy+6lFTugenJHzIM87O8woySCyxLLtBBmNl4HBAEbak=)
@@ -61,6 +61,7 @@ aws:
   s3:
     bucket: dev-relay-content
     presigned-url-ttl: 1h
+  api-destination-key: q8Qkw2Ie6YwRNUNWkGtg
 management:
   endpoints:
     web:
