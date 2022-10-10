@@ -78,3 +78,8 @@ jasypt:
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
     algorithm: PBEWithMD5AndDES
     password: ${app.env.encrypt-password}
+
+springdoc:
+  pathsToMatch: /dev/**
+  swagger-ui:
+    path: /docs
