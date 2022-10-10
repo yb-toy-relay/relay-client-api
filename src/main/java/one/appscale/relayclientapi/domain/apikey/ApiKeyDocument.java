@@ -30,6 +30,7 @@ public class ApiKeyDocument {
     private String owner;
     private Set<String> appTokens;
     private Set<String> eventTokens;
+    private Set<String> emailDomains;
 
     private ApiKeyDocument(final String owner) {
         this.apiKey = generateKey();
@@ -74,6 +75,19 @@ public class ApiKeyDocument {
 
     public ApiKeyDocument removeEventToken(final String eventToken) {
         this.eventTokens.remove(eventToken);
+        return this;
+    }
+
+    public ApiKeyDocument addEmailDomain(final String domain) {
+        if (this.emailDomains == null) {
+            this.emailDomains = new HashSet<>();
+        }
+        this.emailDomains.add(domain);
+        return this;
+    }
+
+    public ApiKeyDocument removeEmailDomain(final String domain) {
+        this.emailDomains.remove(domain);
         return this;
     }
 }

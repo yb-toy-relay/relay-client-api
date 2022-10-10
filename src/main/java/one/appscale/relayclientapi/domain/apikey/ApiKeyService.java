@@ -84,4 +84,20 @@ public class ApiKeyService {
         repository.save(document);
         return document;
     }
+
+    public ApiKeyDocument addEmailDomain(final String owner, final String domain) {
+        final ApiKeyDocument document = repository.findApiKeyDocumentByOwner(owner)
+                                                  .map(doc -> doc.addEmailDomain(domain))
+                                                  .orElseThrow(OwnerNotFoundException::new);
+        repository.save(document);
+        return document;
+    }
+
+    public ApiKeyDocument removeEmailDomain(final String owner, final String domain) {
+        final ApiKeyDocument document = repository.findApiKeyDocumentByOwner(owner)
+                                                  .map(doc -> doc.removeEmailDomain(domain))
+                                                  .orElseThrow(OwnerNotFoundException::new);
+        repository.save(document);
+        return document;
+    }
 }
