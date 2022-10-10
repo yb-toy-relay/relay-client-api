@@ -3,7 +3,7 @@ app:
     master: WpETxvgaUhn0SXwrM6VU
   mail:
     user: admin@appscale.cloud
-    password: ENC(Jy+6lFTugenJHzIM87O8woySCyxLLtBBmNl4HBAEbak=)
+    password: ENC(4oafvi4o+H2MlCD5ZTIZy0TIPuX7oqQeK6vYJm4eePY=)
   mongodb:
     protocol: mongodb
     user: admin
