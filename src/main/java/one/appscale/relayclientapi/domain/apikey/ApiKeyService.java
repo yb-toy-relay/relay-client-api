@@ -2,8 +2,8 @@ package one.appscale.relayclientapi.domain.apikey;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import one.appscale.relayclientapi.api._validator.apikey.MasterApiKeyValidator;
 import one.appscale.relayclientapi.common.exception.ApiUnauthorizedException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiKeyService {
     private final ApiKeyRepository repository;
-
-    @Value("${app.api-key.master}")
-    private String master;
+    private final MasterApiKeyValidator masterApiKeyValidator;
 
     public void checkValidRequest(final String apiKey, final String appToken) {
-        if (apiKey.equals(master)) {
+        if (masterApiKeyValidator.isValid(apiKey)) {
             return;
         }
         repository.findApiKeyDocumentByApiKey(apiKey)
