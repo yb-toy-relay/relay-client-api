@@ -5,43 +5,30 @@ import one.appscale.relayclientapi.domain.apikey.ApiKeyDocument;
 import one.appscale.relayclientapi.domain.apikey.ApiKeyService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/dev/owners")
-public class ApiKeyController {
+@RequestMapping("/dev/app-token")
+public class AppTokenController {
     private final ApiKeyService service;
 
-    @GetMapping
-    public List<String> getAllOwners() {
-        return service.getOwners();
-    }
-
-    @GetMapping("/{owner}")
-    public ApiKeyResponse getByOwner(final @PathVariable("owner") String owner) {
-        final ApiKeyDocument doc = service.getOwner(owner);
+    @PostMapping
+    public ApiKeyResponse addAppToken(final @RequestBody AppTokenRequest request) {
+        final ApiKeyDocument doc = service.addAppToken(request.owner(), request.appToken());
         return ApiKeyResponse.of(doc.getOwner(),
                                  doc.getApiKey(),
                                  doc.getAppTokens());
     }
 
-    @PostMapping("/{owner}")
-    public ApiKeyResponse addOwner(final @PathVariable("owner") String owner) {
-        final ApiKeyDocument doc = service.addOwner(owner);
-        return ApiKeyResponse.of(doc.getOwner(), doc.getApiKey());
-    }
-
-    @GetMapping("/key/{apiKey}")
-    public ApiKeyResponse getOwnerByKey(@PathVariable("apiKey") String apiKey) {
-        final ApiKeyDocument doc = service.getOwnerByKey(apiKey);
+    @DeleteMapping
+    public ApiKeyResponse removeAppToken(final @RequestBody AppTokenRequest request) {
+        final ApiKeyDocument doc = service.removeAppToken(request.owner(), request.appToken());
         return ApiKeyResponse.of(doc.getOwner(),
                                  doc.getApiKey(),
                                  doc.getAppTokens());
