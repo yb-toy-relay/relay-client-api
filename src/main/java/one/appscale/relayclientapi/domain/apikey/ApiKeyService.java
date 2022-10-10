@@ -15,12 +15,13 @@ public class ApiKeyService {
     private final ApiKeyRepository repository;
     private final MasterApiKeyValidator masterApiKeyValidator;
 
-    public void checkValidRequest(final String apiKey, final String appToken) {
+    public void checkValidRequest(final String apiKey, final String appToken, final String email) {
         if (masterApiKeyValidator.isValid(apiKey)) {
             return;
         }
         repository.findApiKeyDocumentByApiKey(apiKey)
                   .filter(doc -> doc.hasAppToken(appToken))
+                  .filter(doc -> doc.hasEmailDomain(email))
                   .stream()
                   .findAny()
                   .orElseThrow(ApiUnauthorizedException::new);
