@@ -1,5 +1,7 @@
 package one.appscale.relayclientapi.api.apikey;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import one.appscale.relayclientapi.api.apikey.dto.ApiKeyResponse;
 import one.appscale.relayclientapi.api.apikey.dto.EmailDomainRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "이메일 도메인 관리")
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -19,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailDomainController {
     private final ApiKeyService service;
 
+    @Operation(summary = "email domain 추가")
     @PostMapping
     public ApiKeyResponse addEmailDomain(final @RequestBody EmailDomainRequest request) {
         final ApiKeyDocument document = service.addEmailDomain(request.owner(), request.emailDomain());
         return ApiKeyResponse.of(document);
     }
 
+    @Operation(summary = "email domain 제거")
     @DeleteMapping
     public ApiKeyResponse removeEmailDomain(final @RequestBody EmailDomainRequest request) {
         final ApiKeyDocument document = service.removeEmailDomain(request.owner(), request.emailDomain());

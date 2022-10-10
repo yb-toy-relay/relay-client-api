@@ -1,5 +1,7 @@
 package one.appscale.relayclientapi.api.apikey;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import one.appscale.relayclientapi.api.apikey.dto.ApiKeyResponse;
 import one.appscale.relayclientapi.domain.apikey.ApiKeyDocument;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "소유자 관리")
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -20,23 +23,27 @@ import java.util.List;
 public class OwnerController {
     private final ApiKeyService service;
 
+    @Operation(summary = "모든 소유자 조회")
     @GetMapping
     public List<String> getAllOwners() {
         return service.getOwners();
     }
 
+    @Operation(summary = "소유자 정보로 API KEY 정보 조회")
     @GetMapping("/{owner}")
     public ApiKeyResponse getByOwner(final @PathVariable("owner") String owner) {
         final ApiKeyDocument document = service.getOwner(owner);
         return ApiKeyResponse.of(document);
     }
 
+    @Operation(summary = "소유자 추가 (API KEY 자동 생성)")
     @PostMapping("/{owner}")
     public ApiKeyResponse addOwner(final @PathVariable("owner") String owner) {
         final ApiKeyDocument document = service.addOwner(owner);
         return ApiKeyResponse.of(document);
     }
 
+    @Operation(summary = "API KEY 로 소유자 조회")
     @GetMapping("/key/{apiKey}")
     public ApiKeyResponse getOwnerByKey(@PathVariable("apiKey") String apiKey) {
         final ApiKeyDocument document = service.getOwnerByKey(apiKey);

@@ -1,5 +1,7 @@
 package one.appscale.relayclientapi.api.apikey;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import one.appscale.relayclientapi.api.apikey.dto.ApiKeyResponse;
 import one.appscale.relayclientapi.api.apikey.dto.EventTokenRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "이벤트 토큰 관리")
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -19,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class EventTokenController {
     private final ApiKeyService service;
 
+    @Operation(summary = "event token 추가")
     @PostMapping
     public ApiKeyResponse addEventToken(final @RequestBody EventTokenRequest request) {
         final ApiKeyDocument document = service.addEventToken(request.owner(), request.eventToken());
         return ApiKeyResponse.of(document);
     }
 
+    @Operation(summary = "event token 제거")
     @DeleteMapping
     public ApiKeyResponse removeEventToken(final @RequestBody EventTokenRequest request) {
         final ApiKeyDocument document = service.removeEventToken(request.owner(), request.eventToken());
