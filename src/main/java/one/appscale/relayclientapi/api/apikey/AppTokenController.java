@@ -21,17 +21,13 @@ public class AppTokenController {
 
     @PostMapping
     public ApiKeyResponse addAppToken(final @RequestBody AppTokenRequest request) {
-        final ApiKeyDocument doc = service.addAppToken(request.owner(), request.appToken());
-        return ApiKeyResponse.of(doc.getOwner(),
-                                 doc.getApiKey(),
-                                 doc.getAppTokens());
+        final ApiKeyDocument document = service.addAppToken(request.owner(), request.appToken());
+        return ApiKeyResponse.of(document);
     }
 
     @DeleteMapping
     public ApiKeyResponse removeAppToken(final @RequestBody AppTokenRequest request) {
-        final ApiKeyDocument doc = service.removeAppToken(request.owner(), request.appToken());
-        return ApiKeyResponse.of(doc.getOwner(),
-                                 doc.getApiKey(),
-                                 doc.getAppTokens());
+        final ApiKeyDocument document = service.removeAppToken(request.owner(), request.appToken());
+        return ApiKeyResponse.of(document);
     }
 }

@@ -27,23 +27,19 @@ public class ApiKeyController {
 
     @GetMapping("/{owner}")
     public ApiKeyResponse getByOwner(final @PathVariable("owner") String owner) {
-        final ApiKeyDocument doc = service.getOwner(owner);
-        return ApiKeyResponse.of(doc.getOwner(),
-                                 doc.getApiKey(),
-                                 doc.getAppTokens());
+        final ApiKeyDocument document = service.getOwner(owner);
+        return ApiKeyResponse.of(document);
     }
 
     @PostMapping("/{owner}")
     public ApiKeyResponse addOwner(final @PathVariable("owner") String owner) {
-        final ApiKeyDocument doc = service.addOwner(owner);
-        return ApiKeyResponse.of(doc.getOwner(), doc.getApiKey());
+        final ApiKeyDocument document = service.addOwner(owner);
+        return ApiKeyResponse.of(document);
     }
 
     @GetMapping("/key/{apiKey}")
     public ApiKeyResponse getOwnerByKey(@PathVariable("apiKey") String apiKey) {
-        final ApiKeyDocument doc = service.getOwnerByKey(apiKey);
-        return ApiKeyResponse.of(doc.getOwner(),
-                                 doc.getApiKey(),
-                                 doc.getAppTokens());
+        final ApiKeyDocument document = service.getOwnerByKey(apiKey);
+        return ApiKeyResponse.of(document);
     }
 }
