@@ -1,5 +1,7 @@
 package one.appscale.relayclientapi.api.apikey.dto;
 
-public record AppTokenRequest(String owner,
-                              String appToken) {
+import javax.validation.constraints.NotEmpty;
+
+public record AppTokenRequest(@NotEmpty String owner,
+                              @NotEmpty String appToken) {
 }

@@ -1,5 +1,7 @@
 package one.appscale.relayclientapi.api.apikey.dto;
 
-public record EmailDomainRequest(String owner,
-                                 String emailDomain) {
+import javax.validation.constraints.NotEmpty;
+
+public record EmailDomainRequest(@NotEmpty String owner,
+                                 @NotEmpty String emailDomain) {
 }
