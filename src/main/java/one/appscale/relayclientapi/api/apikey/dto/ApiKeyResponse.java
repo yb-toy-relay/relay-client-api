@@ -1,4 +1,4 @@
-package one.appscale.relayclientapi.api.apikey;
+package one.appscale.relayclientapi.api.apikey.dto;
 
 import java.util.Set;
 
