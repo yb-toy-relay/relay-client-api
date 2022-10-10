@@ -29,6 +29,7 @@ public class ApiKeyDocument {
     @Indexed(unique = true)
     private String owner;
     private Set<String> appTokens;
+    private Set<String> eventTokens;
 
     private ApiKeyDocument(final String owner) {
         this.apiKey = generateKey();
@@ -61,5 +62,18 @@ public class ApiKeyDocument {
             return false;
         }
         return this.appTokens.contains(appToken);
+    }
+
+    public ApiKeyDocument addEventToken(final String eventToken) {
+        if (this.eventTokens == null) {
+            this.eventTokens = new HashSet<>();
+        }
+        this.eventTokens.add(eventToken);
+        return this;
+    }
+
+    public ApiKeyDocument removeEventToken(final String eventToken) {
+        this.eventTokens.remove(eventToken);
+        return this;
     }
 }

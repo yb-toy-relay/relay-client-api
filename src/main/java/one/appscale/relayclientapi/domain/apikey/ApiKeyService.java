@@ -68,4 +68,20 @@ public class ApiKeyService {
         repository.save(document);
         return document;
     }
+
+    public ApiKeyDocument addEventToken(final String owner, final String eventToken) {
+        final ApiKeyDocument document = repository.findApiKeyDocumentByOwner(owner)
+                                                  .map(doc -> doc.addEventToken(eventToken))
+                                                  .orElseThrow(OwnerNotFoundException::new);
+        repository.save(document);
+        return document;
+    }
+
+    public ApiKeyDocument removeEventToken(final String owner, final String eventToken) {
+        final ApiKeyDocument document = repository.findApiKeyDocumentByOwner(owner)
+                                                  .map(doc -> doc.removeEventToken(eventToken))
+                                                  .orElseThrow(OwnerNotFoundException::new);
+        repository.save(document);
+        return document;
+    }
 }
