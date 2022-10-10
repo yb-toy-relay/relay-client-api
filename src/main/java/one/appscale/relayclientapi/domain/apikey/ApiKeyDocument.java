@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 import static lombok.AccessLevel.PROTECTED;
 
+@Slf4j
 @ToString
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -60,9 +62,15 @@ public class ApiKeyDocument {
 
     public boolean hasAppToken(final String appToken) {
         if (this.appTokens == null) {
+            log.info("No registered appToken. owner:{}", this.owner);
             return false;
         }
-        return this.appTokens.contains(appToken);
+        final boolean isValid = this.appTokens.contains(appToken);
+        if (!isValid) {
+            log.info("not registered appToken. owner:{}, appToken:{}", this.owner, appToken);
+            return false;
+        }
+        return true;
     }
 
     public ApiKeyDocument addEventToken(final String eventToken) {
@@ -89,5 +97,19 @@ public class ApiKeyDocument {
     public ApiKeyDocument removeEmailDomain(final String domain) {
         this.emailDomains.remove(domain);
         return this;
+    }
+
+    public boolean hasEmailDomain(final String email) {
+        final String emailDomain = email.split("@")[1];
+        if (this.emailDomains == null) {
+            log.info("No registered email domain. owner:{}", this.owner);
+            return false;
+        }
+        final boolean isValid = this.emailDomains.contains(emailDomain);
+        if (!isValid) {
+            log.info("not registered email domain. owner:{}, domain:{}", this.owner, emailDomain);
+            return false;
+        }
+        return true;
     }
 }

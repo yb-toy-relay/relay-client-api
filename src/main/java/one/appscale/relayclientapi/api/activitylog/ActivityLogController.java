@@ -22,7 +22,9 @@ public class ActivityLogController {
     public void produceCsvRequest(@Valid
                                   @ActivityLogRequestConstraint
                                   @RequestBody final ActivityLogRequest request) {
-        apiKeyService.checkValidRequest(request.apiKey(), request.appToken());
+        apiKeyService.checkValidRequest(request.apiKey(),
+                                        request.appToken(),
+                                        request.email());
         producer.sendCsvRequest(request.toActivityLogCsvRequest());
     }
 }
