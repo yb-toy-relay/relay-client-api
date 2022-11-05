@@ -16,6 +16,6 @@ public class ActivityLogRequestProducer {
 
     public void sendCsvRequest(final ActivityLogCsvRequest request) {
         kafkaTemplate.send(TOPIC, request.getAppToken(), request);
-        log.info("produce ActivityLogCsvRequest. topic:{}, record:{}", TOPIC, request);
+        log.info("[activity-log][{}] produce. topic:{}", request.getTraceId(), TOPIC);
     }
 }

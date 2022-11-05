@@ -41,8 +41,9 @@ public class AwsApiDestinationController {
         if (userMetadata.isEmpty()) {
             throw new UserMetadataEmptyException(objectKey);
         }
+        final String traceId = userMetadata.traceId();
         final URL url = csvNotificationService.generatePresignedUrl(objectKey);
         csvNotificationService.sendPresignedUrl(userMetadata, url);
-        log.info("mail send complete. userMetadata:{}, objectKey:{}", userMetadata, objectKey);
+        log.info("[activity-log][{}] mail send complete. userMetadata:{}, objectKey:{}", traceId, userMetadata, objectKey);
     }
 }

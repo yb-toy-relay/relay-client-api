@@ -3,6 +3,7 @@ package one.appscale.relayclientapi.api.activitylog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.appscale.relayclientapi.api._validator.activitylogrequest.ActivityLogRequestConstraint;
+import one.appscale.relayclientapi.common.support.TraceIdUtils;
 import one.appscale.relayclientapi.domain.apikey.ApiKeyService;
 import one.appscale.relayclientapi.domain.csv.CsvService;
 import one.appscale.relayclientapi.infra.kafka.producer.ActivityLogRequestProducer;
@@ -24,17 +25,19 @@ public class ActivityLogController {
     private final CsvService csvService;
 
     @PostMapping(value = "/relay/v1/activity-log/csv")
-    public ResponseEntity<Object> produceCsvRequest(
-        @Valid
-        @ActivityLogRequestConstraint
-        @RequestBody final ActivityLogRequest request) {
-        apiKeyService.checkValidRequest(request.apiKey(),
-                                        request.appToken(),
-                                        request.email());
-        if (!csvService.hasData(request.toActivityLogSearchQuery())) {
+    public ResponseEntity<Object> produceCsvRequest(@Valid
+                                                    @ActivityLogRequestConstraint
+                                                    @RequestBody final ActivityLogRequest request) {
+        final String traceId = TraceIdUtils.create();
+        log.info("[activity-log][{}] request:{}", traceId, request);
+
+        apiKeyService.checkValidRequest(request.apiKey(), request.appToken(), request.email());
+
+        if (!csvService.hasData(request.toActivityLogSearchQuery(traceId))) {
+            log.info("[activity-log][{}] no content", traceId);
             return ResponseEntity.noContent().build();
         }
-        producer.sendCsvRequest(request.toActivityLogCsvRequest());
+        producer.sendCsvRequest(request.toActivityLogCsvRequest(traceId));
         return ResponseEntity.ok().build();
     }
 }

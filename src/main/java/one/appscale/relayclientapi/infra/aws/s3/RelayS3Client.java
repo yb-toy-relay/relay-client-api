@@ -30,11 +30,11 @@ public class RelayS3Client {
 
     private final AmazonS3 s3Client;
 
-    public void putObject(final S3File s3File, final ObjectMetadata objectMetadata) {
+    public void putObject(final String logPrefix, final S3File s3File, final ObjectMetadata objectMetadata) {
         final PutObjectRequest putObjectRequest = s3File.toPutObjectRequest(bucket, objectMetadata);
         try {
             s3Client.putObject(putObjectRequest);
-            log.info("put object complete. key:{}", putObjectRequest.getKey());
+            log.info(logPrefix + " put object complete. key:{}", putObjectRequest.getKey());
         } catch (final RuntimeException e) {
             throw new S3PutObjectException(putObjectRequest.getKey(), e);
         }

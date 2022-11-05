@@ -17,7 +17,7 @@ public record ActivityLogRequest(@NotEmpty String activityKind,
                                  @NotNull @JsonFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                  String timezone,
                                  @NotEmpty @Email String email) {
-    public ActivityLogCsvRequest toActivityLogCsvRequest() {
+    public ActivityLogCsvRequest toActivityLogCsvRequest(final String traceId) {
         return ActivityLogCsvRequest.newBuilder()
                                     .setActivityKind(ActivityKind.fromValue(activityKind).value())
                                     .setApiKey(apiKey)
@@ -26,11 +26,12 @@ public record ActivityLogRequest(@NotEmpty String activityKind,
                                     .setEndDate(endDate.toString())
                                     .setZoneId(timezone)
                                     .setEmail(email)
+                                    .setTraceId(traceId)
                                     .build();
     }
 
-    public ActivityLogSearchQuery toActivityLogSearchQuery() {
-        final ActivityLogCsvRequest activityLogCsvRequest = this.toActivityLogCsvRequest();
+    public ActivityLogSearchQuery toActivityLogSearchQuery(final String traceId) {
+        final ActivityLogCsvRequest activityLogCsvRequest = this.toActivityLogCsvRequest(traceId);
         return ActivityLogSearchQuery.of(activityLogCsvRequest);
     }
 }

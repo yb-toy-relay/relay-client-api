@@ -41,8 +41,9 @@ public record CsvMetadata(String appToken,
                              getFileName());
     }
 
-    public UserMetadata toUserMetadata(final String email) {
-        return new UserMetadata(email,
+    public UserMetadata toUserMetadata(final String traceId, final String email) {
+        return new UserMetadata(traceId,
+                                email,
                                 activityKind,
                                 appToken,
                                 startDate,
