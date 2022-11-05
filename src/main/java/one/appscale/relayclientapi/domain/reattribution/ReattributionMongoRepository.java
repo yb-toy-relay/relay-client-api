@@ -13,4 +13,12 @@ public interface ReattributionMongoRepository extends MongoRepository<Reattribut
         }
         """)
     List<ReattributionDocument> findAllByAppTokenAndDate(String appToken, long startTimeEpocSecond, long endTimeEpocSecond);
+
+    @Query(value = """
+        {
+            'appInfo.appToken' : ?0,
+            'activityKey.createdAt' : { $gte: ?1, $lt: ?2 }
+        }
+        """, count = true)
+    long countBy(String appToken, long startTimeEpocSecond, long endTimeEpocSecond);
 }
