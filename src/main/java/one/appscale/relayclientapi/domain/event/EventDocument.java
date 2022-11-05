@@ -9,6 +9,7 @@ import lombok.ToString;
 import one.appscale.relayschema.domain.ActivityKey;
 import one.appscale.relayschema.domain.AppInfo;
 import one.appscale.relayschema.domain.ChannelInfo;
+import one.appscale.relayschema.domain.CustomParameter;
 import one.appscale.relayschema.domain.DeviceDetail;
 import one.appscale.relayschema.domain.DeviceIdInfo;
 import one.appscale.relayschema.domain.EnvironmentInfo;
@@ -39,4 +40,12 @@ public class EventDocument {
     private EventInfo eventInfo;
     private EnvironmentInfo environmentInfo;
     private FacebookReferrerInfo facebookReferrerInfo;
+    private CustomParameter customParameter;
+
+    public CustomParameter getCustomParameter() {
+        if (this.customParameter == null) {
+            return CustomParameter.newBuilder().build();
+        }
+        return this.customParameter;
+    }
 }

@@ -43,5 +43,6 @@ public class AwsApiDestinationController {
         }
         final URL url = csvNotificationService.generatePresignedUrl(objectKey);
         csvNotificationService.sendPresignedUrl(userMetadata, url);
+        log.info("mail send complete. userMetadata:{}, objectKey:{}", userMetadata, objectKey);
     }
 }

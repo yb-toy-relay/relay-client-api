@@ -6,6 +6,7 @@ import one.appscale.relayclientapi.domain.csv.Csv;
 import one.appscale.relayschema.domain.ActivityKey;
 import one.appscale.relayschema.domain.AppInfo;
 import one.appscale.relayschema.domain.ChannelInfo;
+import one.appscale.relayschema.domain.CustomParameter;
 import one.appscale.relayschema.domain.DeviceDetail;
 import one.appscale.relayschema.domain.DeviceIdInfo;
 import one.appscale.relayschema.domain.EnvironmentInfo;
@@ -55,7 +56,12 @@ public record EventCsv(long createdAt,
                        String fbRefAdObjective,
                        String fbRefCampaignGroup,
                        String fbRefCampaign,
-                       String fbRefAdgroup) implements Csv {
+                       String fbRefAdgroup,
+                       String adjCustom1,
+                       String adjCustom2,
+                       String adjCustom3,
+                       String adjCustom4,
+                       String adjCustom5) implements Csv {
     @Builder
     public EventCsv {}
 
@@ -68,6 +74,7 @@ public record EventCsv(long createdAt,
         final EventInfo eventInfo = eventDocument.getEventInfo();
         final EnvironmentInfo environmentInfo = eventDocument.getEnvironmentInfo();
         final FacebookReferrerInfo facebookReferrerInfo = eventDocument.getFacebookReferrerInfo();
+        final CustomParameter customParameter = eventDocument.getCustomParameter();
         return EventCsv.builder()
                        .createdAt(activityKey.getCreatedAt())
                        .activityKind(activityKey.getActivityKind())
@@ -107,6 +114,11 @@ public record EventCsv(long createdAt,
                        .fbRefCampaignGroup(facebookReferrerInfo.getFbRefCampaignGroup())
                        .fbRefCampaign(facebookReferrerInfo.getFbRefCampaign())
                        .fbRefAdgroup(facebookReferrerInfo.getFbRefAdgroup())
+                       .adjCustom1(customParameter.getAdjCustom1())
+                       .adjCustom2(customParameter.getAdjCustom2())
+                       .adjCustom3(customParameter.getAdjCustom3())
+                       .adjCustom4(customParameter.getAdjCustom4())
+                       .adjCustom5(customParameter.getAdjCustom5())
                        .build();
     }
 
@@ -155,7 +167,12 @@ public record EventCsv(long createdAt,
             fbRefAdObjective,
             fbRefCampaignGroup,
             fbRefCampaign,
-            fbRefAdgroup
+            fbRefAdgroup,
+            adjCustom1,
+            adjCustom2,
+            adjCustom3,
+            adjCustom4,
+            adjCustom5
         );
     }
 }
