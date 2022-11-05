@@ -5,7 +5,6 @@ import one.appscale.relayclientapi.domain.activitylog.ActivityLogProvider;
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogProviderFactory;
 import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
 import one.appscale.relayclientapi.domain.csv.exception.CsvException;
-import one.appscale.relaycommon.ActivityKind;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.core.io.InputStreamResource;
@@ -22,9 +21,13 @@ import java.util.List;
 public class CsvService {
     private final ActivityLogProviderFactory factory;
 
+    public boolean hasData(final ActivityLogSearchQuery searchQuery) {
+        final ActivityLogProvider provider = factory.getProvider(searchQuery.activityKind());
+        return provider.hasData(searchQuery);
+    }
+
     private CsvData getCsvDataBy(final ActivityLogSearchQuery searchQuery) {
-        final ActivityKind activityKind = searchQuery.activityKind();
-        final ActivityLogProvider provider = factory.getProvider(activityKind);
+        final ActivityLogProvider provider = factory.getProvider(searchQuery.activityKind());
         return provider.getCsvData(searchQuery);
     }
 
