@@ -29,12 +29,12 @@ public class ActivityLogController {
                                                     @ActivityLogRequestConstraint
                                                     @RequestBody final ActivityLogRequest request) {
         final String traceId = TraceIdUtils.create();
-        log.info("[activity-log][{}] request:{}", traceId, request);
+        log.info("[trace-activity-log][{}] request:{}", traceId, request);
 
         apiKeyService.checkValidRequest(request.apiKey(), request.appToken(), request.email());
 
         if (!csvService.hasData(request.toActivityLogSearchQuery(traceId))) {
-            log.info("[activity-log][{}] no content", traceId);
+            log.info("[trace-activity-log][{}] no content", traceId);
             return ResponseEntity.noContent().build();
         }
         producer.sendCsvRequest(request.toActivityLogCsvRequest(traceId));

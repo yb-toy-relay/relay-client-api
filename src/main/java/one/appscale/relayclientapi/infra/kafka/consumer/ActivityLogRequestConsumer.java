@@ -28,13 +28,13 @@ public class ActivityLogRequestConsumer {
                    containerFactory = "activityLogRequestConsumerFactory")
     public void consumeActivityLogCsvRequest(final ConsumerRecord<String, ActivityLogCsvRequest> record) {
         final var traceId = TraceIdUtils.get(record.value());
-        log.info("[activity-log][{}] consume. topic:{}", traceId, ActivityLogRequestProducer.TOPIC);
+        log.info("[trace-activity-log][{}] consume. topic:{}", traceId, ActivityLogRequestProducer.TOPIC);
 
         final CsvResource csvResource = csvService.getCsvResource(ActivityLogSearchQuery.of(record.value()));
         final ObjectMetadata objectMetadata = csvNotifiableObjectMetadata(traceId,
                                                                           record.value().getEmail(),
                                                                           csvResource.csvMetadata());
-        relayS3Client.putObject(format("[activity-log][%s]", traceId),
+        relayS3Client.putObject(format("[trace-activity-log][%s]", traceId),
                                 csvResource,
                                 objectMetadata);
     }

@@ -44,6 +44,6 @@ public class AwsApiDestinationController {
         final String traceId = userMetadata.traceId();
         final URL url = csvNotificationService.generatePresignedUrl(objectKey);
         csvNotificationService.sendPresignedUrl(userMetadata, url);
-        log.info("[activity-log][{}] mail send complete. userMetadata:{}, objectKey:{}", traceId, userMetadata, objectKey);
+        log.info("[trace-activity-log][{}] mail send complete. userMetadata:{}, objectKey:{}", traceId, userMetadata, objectKey);
     }
 }
