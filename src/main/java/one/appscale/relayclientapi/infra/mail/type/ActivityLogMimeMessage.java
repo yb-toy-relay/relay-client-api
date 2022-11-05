@@ -5,7 +5,8 @@ import one.appscale.relayclientapi.infra.aws.s3.UserMetadata;
 import java.net.URL;
 import java.util.Map;
 
-public record ActivityLogMimeMessage(String email,
+public record ActivityLogMimeMessage(String traceId,
+                                     String email,
                                      String activityKind,
                                      String appToken,
                                      String startDate,
@@ -13,7 +14,8 @@ public record ActivityLogMimeMessage(String email,
                                      String timezone,
                                      String presignedUrl) implements RelayMimeMessage {
     public static ActivityLogMimeMessage of(final UserMetadata userMetadata, final URL presignedUrl) {
-        return new ActivityLogMimeMessage(userMetadata.email(),
+        return new ActivityLogMimeMessage(userMetadata.traceId(),
+                                          userMetadata.email(),
                                           userMetadata.activityKind(),
                                           userMetadata.appToken(),
                                           userMetadata.startDate(),
@@ -45,6 +47,7 @@ public record ActivityLogMimeMessage(String email,
     @Override
     public Map<String, String> variables() {
         return Map.of(
+            "traceId", traceId,
             "activityKind", activityKind,
             "appToken", appToken,
             "startDate", startDate,
