@@ -1,6 +1,7 @@
 package one.appscale.relayclientapi.api.activitylog;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import one.appscale.relayclientapi.domain.activitylog.ActivityLogSearchQuery;
 import one.appscale.relaycommon.ActivityKind;
 import one.appscale.relayschema.request.csv.ActivityLogCsvRequest;
 
@@ -26,5 +27,10 @@ public record ActivityLogRequest(@NotEmpty String activityKind,
                                     .setZoneId(timezone)
                                     .setEmail(email)
                                     .build();
+    }
+
+    public ActivityLogSearchQuery toActivityLogSearchQuery() {
+        final ActivityLogCsvRequest activityLogCsvRequest = this.toActivityLogCsvRequest();
+        return ActivityLogSearchQuery.of(activityLogCsvRequest);
     }
 }
